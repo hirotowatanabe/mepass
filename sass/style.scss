@@ -1,0 +1,381 @@
+//https://www.materialpalette.com/indigo/light-green
+$darkPrimaryColor: #303F9F;
+$lightPrimaryColor: #C5CAE9;
+$primaryColor: #3F51B5;
+$textIcons: #FFFFFF;
+$accentColor: #8BC34A;
+$primaryText: #212121;
+$secondaryText: #757575;
+$dividerColor: #BDBDBD;
+
+@charset "utf-8";
+
+@import "compass/reset";
+
+@mixin formInput($bgColor, $width, $height, $fontSize, $textColor, $textIndent) {
+    background-color: $bgColor;
+    border-radius: 3px;
+    width: $width;
+    height: $height;
+    font-size: $fontSize;
+    color: $textColor;
+    text-indent: $textIndent;
+}
+
+@mixin button($bgColor, $width, $height, $fontSize, $textColor) {
+    display: block;
+    background-color: $bgColor;
+    border-radius: 3px;
+    padding: 0 10px;
+    width: $width;
+    height: $height;
+    color: $textColor;
+    text-align: center;
+    font-size: $fontSize;
+    line-height: $height;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+}
+
+/*一般のスタイル*/
+
+html, body{
+    width: 100%;
+}
+
+.user_header{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    background-color: #e67e22;
+    h1{
+        width: 20%;
+        height: 50px;
+        color: #FFFFFF;
+        font-size: 30px;
+        line-height: 50px;
+        text-align: center;
+    }
+    nav{
+        width: 80%;
+        height: 50px;
+    }
+    nav ul{
+        display: flex;
+        justify-content: flex-end;
+    }
+    nav ul li{
+        height: 50px;
+        margin: 0 10px 0 0;
+        color: #FFFFFF;
+        font-size: 16px;
+        line-height: 50px;
+    }
+    nav ul li a{
+        color: #FFFFFF;
+        font-size: 16px;
+        line-height: 50px;
+    }
+}
+
+.user_footer{
+    width: 100%;
+    background-color: #e67e22;
+    padding: 30px 0 30px 0;
+    nav{
+        display: flex;
+        width: 60%;
+        margin: 0 auto 30px auto;
+    }
+    nav ul{
+        width: 25%;
+    }
+    nav ul h3{
+        color: #FFFFFF;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+    }
+    nav ul li{
+        height: 20px;
+        margin: 0 10px 0 0;
+    }
+    nav ul li a{
+        color: #FFFFFF;
+        font-size: 14px;
+        line-height: 20px;
+    }
+    p{
+        width: 100%;
+        color: #FFFFFF;
+        text-align: center;
+    }
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #e67e22;
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    &--admin {
+        background-color: $darkPrimaryColor;
+    }
+    &__title {
+        text-align: center;
+        font-size: 30px;
+        color: #fff;
+        margin-bottom: 50px;
+    }
+    &__err {
+        margin-bottom: 30px;
+        text-align: center;
+        color: #fff;
+    }
+    &-form {
+        &__item {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        &__text {
+            @include formInput(#fff, 400px, 50px, 20px, $primaryText, 1em);
+            border: none;
+            max-width: 400px;
+            @media(max-width: 400px){
+                width: 100%;
+            }
+        }
+        &__submit {
+            @include formInput(#fff, 400px, 50px, 20px, $primaryText, none);
+            border: none;
+            max-width: 400px;
+            @media(max-width: 400px){
+                width: 100%;
+            }
+            transition: background-color 0.5s linear, color 0.5s linear;
+            &:hover {
+                @include formInput($accentColor, 400px, 50px, 20px, #fff, none);
+            }
+        }
+    }
+    &__link {
+        margin-bottom: 10px;
+        text-align: center;
+        a {
+            color: #fff;
+        }
+    }
+}
+
+//管理画面汎用ヘッダー
+.admin-header {
+    width: 100%;
+    height: 80px;
+    &__list {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        width: 100%;
+        background-color: $primaryColor;
+        z-index: 1000;
+    }
+    &__item {
+        height: 80px;
+        color: #fff;
+        font-size: 16px;
+        line-height: 80px;
+        text-align: center;
+        &--title {
+            min-width: 300px;
+            background-color: $darkPrimaryColor;
+            font-size: 20px;
+            color: #fff;
+        }
+        &--page-title {
+            margin-left: 30px;
+        }
+        &--user {
+            height: 80px;
+            margin: 0 30px 0 auto;
+            i {
+                margin-right: 10px;
+            }
+        }
+    }
+    &__sub-list {
+        background: $primaryColor;
+        width: 200px;
+        height: 160px;
+        display: none;
+        position: absolute;
+        right: 0px;
+    }
+    &__sub-item {
+        height: 80px;
+        text-align: center;
+        a{
+            display: block;
+            color: #fff;
+            line-height: 80px;
+        }
+    }
+}
+
+.admin-content {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 80px);
+}
+
+//管理画面汎用グローバルナビゲーション
+.admin-gnav {
+    min-width: 300px;
+    height: calc(100vh - 80px);
+    background-color: $primaryColor;
+    overflow:auto;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    &__list {
+    }
+    &__item {
+        height: 50px;
+    }
+    &__text{
+        display: block;
+        height: 50px;
+        padding: 0 0 0 10px ;
+        color: #FFFFFF;
+        font-size: 16px;
+        line-height: 50px;
+        i {
+            margin-right: 10px;
+        }
+        &:hover{
+            background-color: $darkPrimaryColor;
+            cursor: pointer;
+        }
+    }
+}
+
+.admin-main {
+    width: calc(100% - 300px);
+    background-color: #FFFFFF;
+    padding: 30px;
+    &-top {
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 50px;
+        width: 100%;
+        &-form {
+            &__text {
+                @include formInput(#fff, 500px, 50px, 20px, $primaryText, 1em);
+                border: solid 1px $primaryColor;
+            }
+            &__submit {
+                @include formInput($primaryColor, 100px, 50px, 20px, #fff, none);
+                border: none;
+                &:hover {
+                    @include formInput($darkPrimaryColor, 100px, 50px, 20px, #fff, none);
+                }
+            }
+        }
+        &__button {
+            @include button($primaryColor, auto, 50px, 20px, #fff);
+            &:hover {
+                @include button($darkPrimaryColor, auto, 50px, 20px, #fff);
+            }
+        }
+    }
+    table {
+        width: 100%;
+        tr th {
+            border-bottom: solid 2px #222;
+            padding: 10px;
+        }
+        tr td {
+            border-bottom: solid 1px #222;
+            padding: 10px;
+        }
+    }
+}
+
+//加盟店契約お申し込み
+.application {
+    background-color: $darkPrimaryColor;
+    width: 100%;
+    &_header {
+        margin-bottom: 50px;
+        height: 100px;
+        &_ttl {
+            width: 100%;
+            height: 50px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 50px;
+            color: #fff;
+        }
+        &_breadcrumbs {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            color: #fff;
+            &_item {
+                &:not(:last-child)::after {
+                    content: "\003e";
+                    margin: 0 10px;
+                }
+                &_now {
+                    color: #EEA34A;
+                }
+            }
+        }
+    }
+    &_main {
+        &_form {
+            width: 1000px;
+            margin: 50px auto;
+            padding: 50px;
+            background-color: #FFFFFF;
+            border-radius: 5px;
+            &_des {
+                font-size: 30px;
+                margin: 0 0 50px 0;
+                line-height: 50px;
+                text-align: left;
+            }
+            table tr th, td {
+                border: solid 1px #222222;
+                padding: 10px;
+                line-height: 20px;
+            }
+            &_btn {
+                margin: 50px 0 0;
+                text-align: center;
+            }
+            &_section {
+                margin-bottom: 50px;
+                &_ttl {
+                    margin-bottom: 30px;
+                    font-size: 20px;
+                }
+                &_item {
+                    margin-bottom: 20px;
+                    &_ttl {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

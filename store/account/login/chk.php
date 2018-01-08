@@ -46,7 +46,7 @@ if(isset($_POST["btn"])){
             session_start();
             $_SESSION["comMem"]["comMemNum"] = $Row["com_mem_num"];
             $_SESSION["comMem"]["comMemName"] = $Row["com_mem_name_kanji"];
-            $_SESSION["comMem"]["store_num"] = $Row["store_num"];
+            $_SESSION["comMem"]["storeNum"] = $Row["store_num"];
             header("Location: /store/");
             exit();
         }else{

@@ -2,24 +2,23 @@
 session_start();
 header("Content-Type:text/html; charset=UTF-8");
 $pageTitle = "プランの選択 | 加盟店契約お申込み";
-if(isset($_SESSION["application"])){
-    unset($_SESSION["application"]);
+$planNum = "";
+if(isset($_SESSION["application"]["planNum"])){
+    $planNum = $_SESSION["application"]["planNum"];
 }
 ?>
 <!DOCTYPE html>
 <?php include($_SERVER['DOCUMENT_ROOT']."/head.php"); ?>
 <body class="application">
     <?php include($_SERVER['DOCUMENT_ROOT']."/company/account/application/header.php"); ?>
-    <main class="application_main">
-        <form class="application_main_form" method="post" action="input_com_info.php">
-            <p class="application_main_form_des">
-                規模に応じて4つのプランからお選びください。<br>
-                プランは毎月更新時に見直すことができます。<br>
-                どのプランも最初の一ヶ月は無料です。
+    <main class="application-main">
+        <form class="application-main-form" method="post" action="input_com_info.php">
+            <p class="application-main-form__description">
+                規模に応じて4つのプランからお選びください。
             </p>
             <table>
                 <tr>
-                    <th width="180"></th><th width="180">個人経営プラン</th><th width="180">小規模チェーン<br>プラン</th><th width="180">中規模チェーン<br>プラン</th><th width="180">大規模チェーン<br>プラン</th>
+                    <th></th><th>個人経営プラン</th><th>小規模チェーンプラン</th><th>中規模チェーンプラン</th><th>大規模チェーンプラン</th>
                 </tr>
                 <tr>
                     <th>登録可能店舗数</th><td>1店舗</td><td>10店舗</td><td>50店舗</td><td>無制限</td>
@@ -32,15 +31,13 @@ if(isset($_SESSION["application"])){
                 </tr>
                 <tr>
                     <th></th>
-                    <td><label for="PlanNum0"><input id="PlanNum0" type="radio" name="PlanNum" value="0" required>このプランを選択</label></td>
-                    <td><label for="PlanNum1"><input id="PlanNum1" type="radio" name="PlanNum" value="1">このプランを選択</label></td>
-                    <td><label for="PlanNum2"><input id="PlanNum2" type="radio" name="PlanNum" value="2">このプランを選択</label></td>
-                    <td><label for="PlanNum3"><input id="PlanNum3" type="radio" name="PlanNum" value="3">このプランを選択</label></td>
+                    <td><label for="planNum0"><input id="planNum0" type="radio" name="planNum" value="0" <?php if($planNum == "0"){ print "checked"; } ?> required>このプランを選択</label></td>
+                    <td><label for="planNum1"><input id="planNum1" type="radio" name="planNum" value="1" <?php if($planNum == "1"){ print "checked"; } ?>>このプランを選択</label></td>
+                    <td><label for="planNum2"><input id="planNum2" type="radio" name="planNum" value="2" <?php if($planNum == "2"){ print "checked"; } ?>>このプランを選択</label></td>
+                    <td><label for="planNum3"><input id="planNum3" type="radio" name="planNum" value="3" <?php if($planNum == "3"){ print "checked"; } ?>>このプランを選択</label></td>
                 </tr>
             </table>
-            <p class="application_main_form_btn">
-                <input type="submit" name="btn" value="次へ">
-            </p>
+            <input class="application-main-form__submit" type="submit" name="btn" value="次へ">
         </form>
     </main>
 </body>

@@ -9,4 +9,11 @@ $(function(){
             $('.admin-main-form__file').append('<span class="admin-main-form__file-name">'+file.name+'</span>');
         };
     });
+
+    $('.application-main-form__submit--go-select_plan').on('click', function() {
+        $('.application-main-form').attr('action', 'select_plan.php');
+    });
+    $('.application-main-form__submit--go-input_com_info').on('click', function() {
+        $('.application-main-form').attr('action', 'input_com_info.php');
+    });
 });

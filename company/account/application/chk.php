@@ -20,13 +20,13 @@ $DispPayHow = "";
 //データ受け取り
 
 //プラン選択情報（表示用データ生成）
-if($_SESSION["application"]["PlanNum"] == "0"){
+if($_SESSION["application"]["planNum"] == "0"){
     $DispPlanNum = "個人経営プラン";
-}else if($_SESSION["application"]["PlanNum"] == "1"){
+}else if($_SESSION["application"]["planNum"] == "1"){
     $DispPlanNum = "小規模チェーンプラン";
-}else if($_SESSION["application"]["PlanNum"] == "2"){
+}else if($_SESSION["application"]["planNum"] == "2"){
     $DispPlanNum = "中規模チェーンプラン";
-}else if($_SESSION["application"]["PlanNum"] == "3"){
+}else if($_SESSION["application"]["planNum"] == "3"){
     $DispPlanNum = "大規模チェーンプラン";
 }
 
@@ -67,72 +67,66 @@ if($_SESSION["application"]["PayHow"] == "0"){
 <?php include($_SERVER['DOCUMENT_ROOT']."/head.php") ?>
 <body class="application">
 <?php include($_SERVER['DOCUMENT_ROOT']."/company/account/application/header.php"); ?>
-    <main class="application_main">
-        <div class="application_main_form">
-            <p class="application_main_form_des">お申込み内容をご確認ください。</p>
-            <section class="application_main_form_section">
-                <h2 class="application_main_form_section_ttl">プラン選択情報</h2>
-                <p class="application_main_form_section_item">
-                    <h3 class="application_main_form_section_item_ttl">プラン名</h3>
-                    <?php print $DispPlanNum; ?>
-                </p>
+    <main class="application-main">
+        <div class="application-main-form">
+            <p class="application-main-form__description">お申込み内容をご確認ください。</p>
+            <section class="application-main-form__section">
+                <h2 class="application-main-form__title">プラン選択情報</h2>
+                <div class="application-main-form__item">
+                    <h3 class="application-main-form__sub-title">プラン名</h3>
+                    <span class="application-main-disp__value"><?php print $DispPlanNum; ?></span>
+                </div>
             </section>
-            <section class="application_main_form_section">
-                <h2 class="application_main_form_section_ttl">企業情報</h2>
-                <p class="application_main_form_section_item">
-                    <h3 class="application_main_form_section_item_ttl">企業名</h3>
-                    <?php print $_SESSION["application"]["ComName"]; ?>
-                </p>
-                <p class="application_main_form_section_item">
-                    <h3 class="application_main_form_section_item_ttl">代表者氏名</h3>
-                    <?php print $_SESSION["application"]["ComNameKanji"]; ?>（漢字）<br>
-                    <?php print $_SESSION["application"]["ComNameFurigana"]; ?>（フリガナ）
-                </p>
-                <p class="application_main_form_section_item">
-                    <h3 class="application_main_form_section_item_ttl">所在地</h3>
-                    〒<?php print $_SESSION["application"]["ComPost"]; ?><br>
-                    <?php print $_SESSION["application"]["ComPref"].$_SESSION["application"]["ComCity"].$_SESSION["application"]["ComAdd"]; ?>
-                </p>
-                <p class="application_main_form_section_item">
-                    <h3 class="application_main_form_section_item_ttl">電話番号</h3>
-                    <?php print $_SESSION["application"]["ComTel"]; ?>
-                </p>
-                <p class="application_main_form_section_item">
-                    <h3 class="application_main_form_section_item_ttl">メールアドレス</h3>
-                    <?php print $_SESSION["application"]["ComMail"]; ?>
-                </p>
+            <section class="application-main-form__section">
+                <h2 class="application-main-form__title">企業情報</h2>
+                <div class="application-main-form__item">
+                    <h3 class="application-main-form__sub-title">企業名</h3>
+                    <span class="application-main-disp__value"><?php print $_SESSION["application"]["ComName"]; ?></span>
+                </div>
+                <div class="application-main-form__item">
+                    <h3 class="application-main-form__sub-title">代表者氏名</h3>
+                    <span class="application-main-disp__value"><?php print $_SESSION["application"]["ComNameKanji"]; ?>（漢字）<br>
+                    <?php print $_SESSION["application"]["ComNameFurigana"]; ?>（フリガナ）</span>
+                </div>
+                <div class="application-main-form__item">
+                    <h3 class="application-main-form__sub-title">所在地</h3>
+                    <span class="application-main-disp__value">〒<?php print $_SESSION["application"]["ComPost"]; ?><br>
+                    <?php print $_SESSION["application"]["ComPref"].$_SESSION["application"]["ComCity"].$_SESSION["application"]["ComAdd"]; ?></span>
+                </div>
+                <div class="application-main-form__item">
+                    <h3 class="application-main_form__sub-title">電話番号</h3>
+                    <span class="application-main-disp__value"><?php print $_SESSION["application"]["ComTel"]; ?></span>
+                </div>
+                <div class="application-main-form__item">
+                    <h3 class="application-main-form__sub-title">メールアドレス</h3>
+                    <span class="application-main-disp__value"><?php print $_SESSION["application"]["ComMail"]; ?></span>
+                </div>
             </section>
-            <section class="application_main_form_section">
-                <h2 class="application_main_form_section_ttl">お支払い情報</h2>
-                <p class="application_main_form_section_item">
-                    <h3 class="application_main_form_section_item_ttl">カード会社</h3>
-                    <?php print $DispPayBrand; ?>
-                </p>
-                <p class="application_main_form_section_item">
-                    <h3 class="application_main_form_section_item_ttl">カード番号</h3>
-                    <?php print $_SESSION["application"]["PayNum"]; ?>
-                </p>
-                <p class="application_main_form_section_item">
-                    <h3 class="application_main_form_section_item_ttl">有効期限</h3>
-                    <?php print $_SESSION["application"]["PayDate"]; ?>
-                </p>
-                <p class="application_main_form_section_item">
-                    <h3 class="application_main_form_section_item_ttl">名義人</h3>
-                    <?php print $_SESSION["application"]["PayName"]; ?>
-                </p>
-                <p class="application_main_form_section_item">
-                    <h3 class="application_main_form_section_item_ttl">お支払い方法</h3>
-                    <?php print $DispPayHow; ?>
-                </p>
+            <section class="application-main-form__section">
+                <h2 class="application-main-form__title">お支払い情報</h2>
+                <div class="application-main-form__item">
+                    <h3 class="application-main-form__sub-title">カード会社</h3>
+                    <span class="application-main-disp__value"><?php print $DispPayBrand; ?></span>
+                </div>
+                <div class="application-main-form__item">
+                    <h3 class="application-main-form__sub-title">カード番号</h3>
+                    <span class="application-main-disp__value"><?php print $_SESSION["application"]["PayNum"]; ?></span>
+                </div>
+                <div class="application-main-form__item">
+                    <h3 class="application-main-form__sub-title">有効期限</h3>
+                    <span class="application-main-disp__value"><?php print $_SESSION["application"]["PayDate"]; ?></span>
+                </div>
+                <div class="application-main-form__item">
+                    <h3 class="application-main-form__sub-title">名義人</h3>
+                    <span class="application-main-disp__value"><?php print $_SESSION["application"]["PayName"]; ?></span>
+                </div>
+                <div class="application-main-form__item">
+                    <h3 class="application-main-form__sub-title">お支払い方法</h3>
+                    <span class="application-main-disp__value"><?php print $DispPayHow; ?></span>
+                </div>
             </section>
-            <form method="post" action="ex.php">
-                <p class="application_main_form_btn">
-                    <input type="submit" name="btn" value="次へ">
-                </p>
-                <p class="application_main_form_btn">
-                    <input type="submit" name="btn" value="戻る">
-                </p>
-            </form>
+            <a class="application-main-form__button" href="ex.php">確定</a>
+            <a class="application-main-form__button" href="input_pay_info.php">戻る</a>
         </div>
     </main>
 </body>

@@ -22,7 +22,7 @@ if(!mysqli_select_db($Link,$DB)){
 $SQL1 = "insert into t_company";
 $SQL1 .= "(plan_num, com_name, com_name_kanji, com_name_furigana, com_post, com_pref, com_city, com_add, com_tel, com_mail, com_pass)";
 $SQL1 .= " values";
-$SQL1 .= "('".$_SESSION["application"]["PlanNum"]."', '".$_SESSION["application"]["ComName"]."', '".$_SESSION["application"]["ComNameKanji"]."', '".$_SESSION["application"]["ComNameFurigana"]."', '".$_SESSION["application"]["ComPost"]."', '".$_SESSION["application"]["ComPref"]."', '".$_SESSION["application"]["ComCity"]."', '".$_SESSION["application"]["ComAdd"]."', '".$_SESSION["application"]["ComTel"]."', '".$_SESSION["application"]["ComMail"]."', '".$_SESSION["application"]["ComPass"]."')";
+$SQL1 .= "('".$_SESSION["application"]["planNum"]."', '".$_SESSION["application"]["ComName"]."', '".$_SESSION["application"]["ComNameKanji"]."', '".$_SESSION["application"]["ComNameFurigana"]."', '".$_SESSION["application"]["ComPost"]."', '".$_SESSION["application"]["ComPref"]."', '".$_SESSION["application"]["ComCity"]."', '".$_SESSION["application"]["ComAdd"]."', '".$_SESSION["application"]["ComTel"]."', '".$_SESSION["application"]["ComMail"]."', '".$_SESSION["application"]["ComPass"]."')";
 if(!$SqlRes = mysqli_query($Link,$SQL1)){
     exit("MySQL（企業テーブル格納）クエリー送信エラー<br />" . mysqli_error($Link) . "<br />" . $SQL1);
 }
@@ -62,27 +62,31 @@ if($NumRow2 == "0"){
 
 $_SESSION["company"]["comNum"] = $Row2["com_num"];
 $_SESSION["company"]["comName"] = $_SESSION["application"]["ComName"];
+
+if(isset($_SESSION["application"])){
+    unset($_SESSION["application"]);
+}
 ?>
 <!DOCTYPE html>
 <?php include($_SERVER['DOCUMENT_ROOT']."/head.php") ?>
 <body class="application">
     <?php include($_SERVER['DOCUMENT_ROOT']."/company/account/application/header.php"); ?>
-    <main class="application_main">
-        <div class="application_main_form">
-            <p class="application_main_form_des">お申し込みが完了しました。<br>
+    <main class="application-main">
+        <div class="application-main-form">
+            <p class="application-main-form__description">お申し込みが完了しました。<br>
             以下は企業ページへのログイン情報です。</p>
-            <section class="application_main_form_section">
-                <h2 class="application_main_form_section_ttl">初期アカウント情報</h2>
-                <p class="application_main_form_section_item">
-                    <h3 class="application_main_form_section_item_ttl">企業番号</h3>
-                    <?php print $Row2["com_num"]; ?>
-                </p>
-                <p class="application_main_form_section_item">
-                    <h3 class="application_main_form_section_item_ttl">パスワード</h3>
-                    設定したパスワード
-                </p>
+            <section class="application-main-form__section">
+                <h2 class="application-main-form__title">初期アカウント情報</h2>
+                <div class="application-main-form__item">
+                    <h3 class="application-main-form__sub-title">企業番号</h3>
+                    <span class="application-main-disp__value"><?php print $Row2["com_num"]; ?></span>
+                </div>
+                <div class="application-main-form__item">
+                    <h3 class="application-main-form__sub-title">パスワード</h3>
+                    <span class="application-main-disp__value">設定したパスワード</span>
+                </div>
             </section>
-            <a href="/company/">企業ページへ進む</a>
+            <a class="application-main-form__button" href="/company/">企業ページへ進む</a>
         </div>
     </main>
 </body>

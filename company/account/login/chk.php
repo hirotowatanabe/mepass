@@ -7,7 +7,6 @@ $Pass = "";
 if(isset($_POST["btn"])){
     $num = $_POST["num"];
     $pass = $_POST["pass"];
-    $ReUrl = $_POST["ReUrl"];
 
     include("../../../mysqlenv.php");
 

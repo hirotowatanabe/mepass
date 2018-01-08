@@ -12,8 +12,9 @@ $dividerColor: #BDBDBD;
 
 @import "compass/reset";
 
-@mixin formInput($bgColor, $width, $height, $fontSize, $textColor, $textIndent) {
+@mixin formInput($bgColor, $border, $width, $height, $fontSize, $textColor, $textIndent) {
     background-color: $bgColor;
+    border: $border;
     border-radius: 3px;
     width: $width;
     height: $height;
@@ -22,9 +23,10 @@ $dividerColor: #BDBDBD;
     text-indent: $textIndent;
 }
 
-@mixin button($bgColor, $width, $height, $fontSize, $textColor) {
+@mixin button($bgColor, $border, $width, $height, $fontSize, $textColor) {
     display: block;
     background-color: $bgColor;
+    border: $border;
     border-radius: 3px;
     padding: 0 10px;
     width: $width;
@@ -146,23 +148,21 @@ html, body{
             margin-bottom: 30px;
         }
         &__text {
-            @include formInput(#fff, 400px, 50px, 20px, $primaryText, 1em);
-            border: none;
+            @include formInput(#fff, none, 400px, 50px, 20px, $primaryText, 1em);
             max-width: 400px;
             @media(max-width: 400px){
                 width: 100%;
             }
         }
         &__submit {
-            @include formInput(#fff, 400px, 50px, 20px, $primaryText, none);
-            border: none;
+            @include formInput(#fff, none, 400px, 50px, 20px, $primaryText, none);
             max-width: 400px;
             @media(max-width: 400px){
                 width: 100%;
             }
             transition: background-color 0.5s linear, color 0.5s linear;
             &:hover {
-                @include formInput($accentColor, 400px, 50px, 20px, #fff, none);
+                @include formInput($accentColor, none, 400px, 50px, 20px, #fff, none);
             }
         }
     }
@@ -277,21 +277,19 @@ html, body{
         width: 100%;
         &-form {
             &__text {
-                @include formInput(#fff, 500px, 50px, 20px, $primaryText, 1em);
-                border: solid 1px $primaryColor;
+                @include formInput(#fff, (solid 1px $dividerColor), 500px, 50px, 20px, $primaryText, 1em);
             }
             &__submit {
-                @include formInput($primaryColor, 100px, 50px, 20px, #fff, none);
-                border: none;
+                @include formInput($primaryColor, none, 100px, 50px, 20px, #fff, none);
                 &:hover {
-                    @include formInput($darkPrimaryColor, 100px, 50px, 20px, #fff, none);
+                    @include formInput($darkPrimaryColor, none, 100px, 50px, 20px, #fff, none);
                 }
             }
         }
         &__button {
-            @include button($primaryColor, auto, 50px, 20px, #fff);
+            @include button($primaryColor, none, auto, 50px, 20px, #fff);
             &:hover {
-                @include button($darkPrimaryColor, auto, 50px, 20px, #fff);
+                @include button($darkPrimaryColor, none, auto, 50px, 20px, #fff);
             }
         }
     }
@@ -304,6 +302,68 @@ html, body{
         tr td {
             border-bottom: solid 1px #222;
             padding: 10px;
+        }
+    }
+    &__title {
+        margin-bottom: 50px;
+        font-size: 30px;
+        font-weight: bold;
+        color: $primaryText;
+    }
+    &-form {
+        &__item {
+            margin-bottom: 30px;
+        }
+        &__title {
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: $primaryText;
+        }
+        &__text {
+            @include formInput(#fff, (solid 1px $dividerColor), 800px, 50px, 20px, $primaryText, 1em);
+        }
+        &__file {
+            display: flex;
+            align-items: center;
+            &-button {
+                @include button(#fff, (solid 1px $dividerColor), 200px, 50px, 20px, $dividerColor);
+                margin-right: 20px;
+                &:hover {
+                    @include button($dividerColor, none, 200px, 50px, 20px, #fff);
+                }
+            }
+            &-input {
+                display: none;
+            }
+            &-name {
+                font-size: 20px;
+            }
+        }
+        &__submit {
+            @include formInput($primaryColor, none, 100px, 50px, 20px, #fff, none);
+            &:hover {
+                @include formInput($darkPrimaryColor, none, 100px, 50px, 20px, #fff, none);
+            }
+        }
+    }
+    &-disp {
+        &__item {
+            margin-bottom: 30px;
+        }
+        &__title {
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: $primaryText;
+        }
+        &__value {
+            font-size: 30px;
+        }
+        &__button {
+            @include button($primaryColor, none, 200px, 50px, 20px, #fff);
+            &:hover {
+                @include button($darkPrimaryColor, none, 200px, 50px, 20px, #fff);
+            }
         }
     }
 }

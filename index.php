@@ -1,35 +1,69 @@
 <?php
-/*-----------------------------------------------------------------------------
-  概要      :
-            :
-  作成者    :
-  作成日    :
-  更新履歴  :
------------------------------------------------------------------------------*/
-//  HTTPヘッダーで文字コードを指定
 header("Content-Type:text/html; charset=UTF-8");
-//処理部
 include("login_chk.php");
+$pageTitle = "フィード";
+$searchValue = "";
+
+if(isset($_POST["searchButton"])){
+    $searchValue = $_POST["searchValue"];
+}
+
+include($_SERVER['DOCUMENT_ROOT']."/mysqlenv.php");
+
+if(!$Link = mysqli_connect($HOST,$USER,$PASS)){
+    exit("MySQL接続エラー<br />" . mysqli_connect_error());
+}
+
+$SQL = "set names utf8";
+if(!mysqli_query($Link,$SQL)){
+    exit("MySQLクエリー送信エラー<br />" . $SQL);
+}
+
+if(!mysqli_select_db($Link,$DB)){
+    exit("MySQLデータベース選択エラー<br />" . $DB);
+}
+
+$SQL = "select * from t_menu where menu_name like '%".$searchValue."%'";
+if(!$SqlRes = mysqli_query($Link,$SQL)){
+    exit("MySQLクエリー送信エラー<br />" . mysqli_error($Link) . "<br />" . $SQL);
+}
+
+while($Row = mysqli_fetch_array($SqlRes)){
+    $RowAry[] = $Row;
+}
+
+$NumRow = mysqli_num_rows($SqlRes);
+
+mysqli_free_result($SqlRes);
+
+if(!mysqli_close($Link)){
+    exit("MySQL切断エラー");
+}
 ?>
 <!DOCTYPE html>
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="content-script-type" content="text/javascript" />
-<meta http-equiv="content-style-type" content="text/css" />
-<link rel="stylesheet" href="/css/style.css" type="text/css" />
-<title>トップ | mepass</title>
-</head>
+<?php include($_SERVER['DOCUMENT_ROOT']."/head.php") ?>
 <body>
-<div id="wrapper">
     <?php include("header.php") ?>
-    <div id="main">
-
-        まだお店をフォローしていません。こちらから探しましょう。
-    </div>
+    <main class="user-main">
+        <form class="user-main__search" action="index.php" method="post">
+            <input class="admin-main-top-form__text" type="text" name="searchValue" value="<?php print $searchValue; ?>" placeholder="メニュー名検索" />
+            <input class="admin-main-top-form__submit" type="submit" name="searchButton" value="検索" />
+        </form>
+        <div class="admin-main__menu">
+        <?php if($NumRow != 0): ?>
+            <?php for($i=0; $i<$NumRow; $i++): ?>
+                <div class="menu-card">
+                    <img src="/store/menu/images/<?php print $RowAry[$i]["menu_file_name"]; ?>" width="300">
+                    <div class="menu-card__name"><?php print $RowAry[$i]["menu_name"]; ?></div>
+                    <div class="menu-card__price"><?php print $RowAry[$i]["menu_price"]; ?>円</div>
+                    <a class="menu-card__button" href="/user/ticket.php?id=<?php print $RowAry[$i]["menu_num"]; ?>">選択</a>
+                </div>
+            <?php endfor; ?>
+        <?php else: ?>
+            <p>メニューが見つかりませんでした。</p>
+        <?php endif; ?>
+        </div>
+    </main>
     <?php include("footer.php") ?>
-</div>
-<?php
-//表示部
-?>
 </body>
 </html>

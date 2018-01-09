@@ -244,9 +244,10 @@ html, body{
 
 //管理画面汎用グローバルナビゲーション
 .admin-gnav {
+    background-color: $primaryColor;
+    position: fixed;
     min-width: 300px;
     height: calc(100vh - 80px);
-    background-color: $primaryColor;
     overflow:auto;
     overflow-y:scroll;
     overflow-x:hidden;
@@ -273,9 +274,10 @@ html, body{
 }
 
 .admin-main {
-    width: calc(100% - 300px);
-    background-color: #FFFFFF;
+    background-color: #fff;
+    margin-left: 300px;
     padding: 30px;
+    width: calc(100% - 300px);
     &-top {
         box-sizing: border-box;
         display: flex;
@@ -319,6 +321,8 @@ html, body{
     }
     &__menu {
         display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
     }
     &-form {
         &__item {
@@ -478,7 +482,7 @@ html, body{
     flex-direction: column;
     align-items: center;
     background-color: $dividerColor;
-    margin: 0 30px 30px 0;
+    margin-bottom: 50px;
     padding-bottom: 10px;
     width: 300px;
     &__name {
@@ -490,10 +494,15 @@ html, body{
         padding: 10px;
         line-height: 26px;
     }
-    &__button {
-        @include button($primaryColor, none, 100px, 50px, 20px, #fff);
-        &:hover {
-            @include button($darkPrimaryColor, none, 100px, 50px, 20px, #fff);
+    &-form {
+        &__number {
+            @include formInput(#fff, (solid 1px $dividerColor), 50px, 50px, 20px, $primaryText, 1em);
+        }
+        &__submit {
+            @include formInput($primaryColor, none, 100px, 50px, 20px, #fff, none);
+            &:hover {
+                @include formInput($darkPrimaryColor, none, 100px, 50px, 20px, #fff, none);
+            }
         }
     }
 }

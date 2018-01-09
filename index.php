@@ -43,7 +43,7 @@ if(!mysqli_close($Link)){
 <!DOCTYPE html>
 <?php include($_SERVER['DOCUMENT_ROOT']."/head.php") ?>
 <body>
-    <?php include("header.php") ?>
+    <?php include($_SERVER['DOCUMENT_ROOT']."/header.php") ?>
     <main class="user-main">
         <form class="user-main__search" action="index.php" method="post">
             <input class="admin-main-top-form__text" type="text" name="searchValue" value="<?php print $searchValue; ?>" placeholder="メニュー名検索" />
@@ -56,7 +56,11 @@ if(!mysqli_close($Link)){
                     <img src="/store/menu/images/<?php print $RowAry[$i]["menu_file_name"]; ?>" width="300">
                     <div class="menu-card__name"><?php print $RowAry[$i]["menu_name"]; ?></div>
                     <div class="menu-card__price"><?php print $RowAry[$i]["menu_price"]; ?>円</div>
-                    <a class="menu-card__button" href="/user/ticket.php?id=<?php print $RowAry[$i]["menu_num"]; ?>">選択</a>
+                    <form action="/user/ticket.php" method="post">
+                        <input type="hidden" name="id" value="<?php print $RowAry[$i]["menu_num"]; ?>">
+                        <input class="menu-card-form__number" type="number" name="num" value="1">点
+                        <input class="menu-card-form__submit" type="submit" name="menuSelectSubmit" value="選択">
+                    </form>
                 </div>
             <?php endfor; ?>
         <?php else: ?>
@@ -64,6 +68,6 @@ if(!mysqli_close($Link)){
         <?php endif; ?>
         </div>
     </main>
-    <?php include("footer.php") ?>
+    <?php include($_SERVER['DOCUMENT_ROOT']."/footer.php") ?>
 </body>
 </html>

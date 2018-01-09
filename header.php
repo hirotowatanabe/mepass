@@ -1,9 +1,9 @@
 <header class="user_header">
-    <h1>mepass</h1>
+    <h1><a href="/">mepass</a></h1>
     <nav>
         <ul>
             <li><a href="#">お店を探す</a></li>
-            <li><a href="#">選択中のチケット</a></li>
+            <li><a href="/user/ticket.php">選択中のチケット</a></li>
             <li>|</li>
             <?php if($UserMail == ""){ ?>
             <li><a href="/user/account/login/">ログイン</a></li>

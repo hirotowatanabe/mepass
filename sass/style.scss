@@ -310,6 +310,9 @@ html, body{
         font-weight: bold;
         color: $primaryText;
     }
+    &__menu {
+        display: flex;
+    }
     &-form {
         &__item {
             margin-bottom: 30px;
@@ -459,5 +462,22 @@ html, body{
                 line-height: 50px;
             }
         }
+    }
+}
+
+//メニューカード
+.menu-card {
+    display: flex;
+    flex-direction: column;
+    background-color: $dividerColor;
+    margin: 0 30px 30px 0;
+    width: 300px;
+    &__name {
+        font-size: 20px;
+        font-weight: bold;
+        padding: 10px;
+    }
+    &__price {
+        padding: 10px;
     }
 }

@@ -32,28 +32,30 @@ $dbh = null;
 <body>
     <?php include($_SERVER['DOCUMENT_ROOT']."/header.php") ?>
     <main class="user-main">
-        <form class="user-main__search" action="index.php" method="post">
-            <input class="admin-main-top-form__text" type="text" name="searchValue" value="<?= $searchValue ?>" placeholder="メニュー名検索" />
-            <input class="admin-main-top-form__submit" type="submit" name="searchButton" value="検索" />
+        <form class="user-main-search" action="index.php" method="post">
+            <input class="user-main-search__text" type="text" name="searchValue" value="<?= $searchValue ?>" placeholder="メニュー名検索" />
+            <input class="user-main-search__submit" type="submit" name="searchButton" value="検索" />
         </form>
-        <div class="admin-main__menu">
         <?php if($count != 0): ?>
-            <?php for($i=0; $i<$count; $i++): ?>
-                <div class="menu-card">
+        <ul class="user-main__menu">
+        <?php for($i=0; $i<$count; $i++): ?>
+            <li class="menu-card">
+                <div class="menu-card__image-container">
                     <img src="/store/menu/images/<?= $rows[$i]['menu_file_name'] ?>" width="300">
-                    <div class="menu-card__name"><?= $rows[$i]['menu_name'] ?></div>
-                    <div class="menu-card__price"><?= $rows[$i]['menu_price'] ?>円</div>
-                    <form action="/user/ticket.php" method="post">
-                        <input type="hidden" name="id" value="<?= $result[$i]['menu_num'] ?>">
-                        <input class="menu-card-form__number" type="number" name="num" value="1">点
-                        <input class="menu-card-form__submit" type="submit" name="menuSelectSubmit" value="選択">
-                    </form>
                 </div>
-            <?php endfor; ?>
+                <div class="menu-card__name"><?= $rows[$i]['menu_name'] ?></div>
+                <div class="menu-card__price"><?= $rows[$i]['menu_price'] ?>円</div>
+                <form action="/user/ticket.php" method="post">
+                    <input type="hidden" name="id" value="<?= $result[$i]['menu_num'] ?>">
+                    <input class="menu-card-form__number" type="number" name="num" value="1">点
+                    <input class="menu-card-form__submit" type="submit" name="menuSelectSubmit" value="選択">
+                </form>
+            </li>
+        <?php endfor; ?>
+        </ul>
         <?php else: ?>
             <p>メニューが見つかりませんでした。</p>
         <?php endif; ?>
-        </div>
     </main>
     <?php include($_SERVER['DOCUMENT_ROOT']."/footer.php") ?>
 </body>

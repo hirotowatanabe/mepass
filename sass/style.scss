@@ -87,16 +87,20 @@ html, body{
 }
 
 .user-main {
-    padding: 50px;
+    margin: 0 auto;
+    width: 1290px;
+    padding: 50px 0;
     &-search {
-        margin: 0 auto 50px auto;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 50px;
         &__text {
-            @include formInput(#fff, (solid 1px $dividerColor), 500px, 50px, 20px, $primaryText, 1em);
+            @include formInput(#fff, (solid 1px $dividerColor), 1080px, 50px, 20px, $primaryText, 1em);
         }
         &__submit {
-            @include formInput($primaryColor, none, 100px, 50px, 20px, #fff, none);
+            @include formInput($primaryColor, none, 200px, 50px, 20px, #fff, none);
             &:hover {
-                @include formInput($darkPrimaryColor, none, 100px, 50px, 20px, #fff, none);
+                @include formInput($darkPrimaryColor, none, 200px, 50px, 20px, #fff, none);
             }
         }
     }
@@ -126,6 +130,17 @@ html, body{
             &:hover {
                 @include button($darkPrimaryColor, auto, auto, 50px, 20px, #fff);
             }
+        }
+    }
+    &-msg {
+        background-color: $dividerColor;
+        border-radius: 3px;
+        margin-bottom: 50px;
+        padding: 10px;
+        color: $primaryText;
+        &__link {
+            color: $primaryText;
+            text-decoration: underline;
         }
     }
 }
@@ -519,8 +534,11 @@ html, body{
     flex-direction: column;
     align-items: center;
     background-color: $dividerColor;
-    margin: 0 30px 30px 0;
+    margin-bottom: 30px;
     width: 300px;
+    &:not(:nth-child(4n)) {
+        margin-right: 30px;
+    }
     &__image-container {
         margin-bottom: 10px;
         width: 300px;
@@ -530,10 +548,10 @@ html, body{
     &__name {
         font-size: 20px;
         font-weight: bold;
-        line-height: 30px;
+        line-height: 40px;
     }
     &__price {
-        line-height: 26px;
+        line-height: 36px;
     }
     &-form {
         margin-bottom: 10px;

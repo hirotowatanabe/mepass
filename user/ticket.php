@@ -2,6 +2,7 @@
 header('Content-Type:text/html; charset=UTF-8');
 include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
 $pageTitle = '選択中のチケット';
+$msg = '';
 
 //メニュー選択
 if(isset($_POST['menuSelectSubmit'])){
@@ -12,7 +13,7 @@ if(isset($_POST['menuSelectSubmit'])){
         //新規追加処理
         $_SESSION['ticket'][$_POST['id']] = $_POST['num'];
     }
-    header('Location: /');
+    header('Location: /?select=true');
     exit();
 }
 
@@ -20,22 +21,22 @@ if(isset($_POST['menuSelectSubmit'])){
 if(isset($_POST['menuChangeSubmit'])){
     //数量更新処理
     $_SESSION['ticket'][$_POST['id']] = $_POST['num'];
-    header('Location: /user/ticket.php');
-    exit();
+    $msg = '数量を更新しました。';
 }
 
 //個別削除が要求された
 if(isset($_GET['delete'])){
     unset($_SESSION['ticket'][$_GET['id']]);
-    header('Location: /user/ticket.php');
-    exit();
+    $msg = '削除しました。';
+    if(count($_SESSION['ticket']) == '0'){
+        unset($_SESSION["ticket"]);
+    }
 }
 
 //全件削除が要求された
 if(isset($_GET["reset"])){
     unset($_SESSION["ticket"]);
-    header('Location: /user/ticket.php');
-    exit();
+    $msg = '全て削除しました。';
 }
 
 if(isset($_SESSION['ticket'])){
@@ -72,9 +73,12 @@ if(isset($_SESSION['ticket'])){
             <h3 class="user-main-ticket-top__title">選択中のチケット</h3>
             <?php if(isset($_SESSION["ticket"])): ?>
                 <a class="user-main-ticket-top__reset" href="ticket.php?reset=true">選択中のチケットをリセット</a>
-                <a class="user-main-ticket-top__button" href="ticket.php?reset=true">購入に進む</a>
+                <a class="user-main-ticket-top__button" href="ticket.php?reset=true">注文に進む</a>
             <?php endif; ?>
         </div>
+        <?php if($msg != ''): ?>
+        <p class="user-main-msg"><?= $msg ?></p>
+        <?php endif; ?>
         <?php if(isset($_SESSION["ticket"])): ?>
             <ul class="user-main__menu">
             <?php for($i=0; $i<count($rows); $i++): ?>
@@ -86,7 +90,7 @@ if(isset($_SESSION['ticket'])){
                     <div class="menu-card__price"><?= $rows[$i]['menu_price'] ?>円</div>
                     <form class="menu-card-form" action="/user/ticket.php" method="post">
                         <input type="hidden" name="id" value="<?= $rows[$i]['menu_num'] ?>">
-                        <input class="menu-card-form__number" type="number" name="num" value="<?= $_SESSION['ticket'][$rows[$i]['menu_num']] ?>">点
+                        <input class="menu-card-form__number" type="number" name="num" value="<?= $_SESSION['ticket'][$rows[$i]['menu_num']] ?>" min="1">点
                         <input class="menu-card-form__submit" type="submit" name="menuChangeSubmit" value="数量変更">
                     </form>
                     <a class="menu-card__delete" href="/user/ticket.php?delete=true&id=<?= $rows[$i]['menu_num'] ?>">削除</a>

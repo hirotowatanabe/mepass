@@ -3,9 +3,14 @@ header('Content-Type:text/html; charset=UTF-8');
 include('login_chk.php');
 $pageTitle = 'フィード';
 $searchValue = '';
+$msg = '';
 
 if(isset($_POST['searchButton'])){
     $searchValue = $_POST['searchValue'];
+}
+
+if(isset($_GET['select'])){
+    $msg = '追加しました。<a class="user-main-msg__link" href="/user/ticket.php">選択中のチケットを確認する。</a>';
 }
 
 include($_SERVER['DOCUMENT_ROOT'].'/mysqlenv.php');
@@ -36,6 +41,9 @@ $dbh = null;
             <input class="user-main-search__text" type="text" name="searchValue" value="<?= $searchValue ?>" placeholder="メニュー名検索" />
             <input class="user-main-search__submit" type="submit" name="searchButton" value="検索" />
         </form>
+        <?php if($msg != ''): ?>
+        <p class="user-main-msg"><?= $msg ?></p>
+        <?php endif; ?>
         <?php if($count != 0): ?>
         <ul class="user-main__menu">
         <?php for($i=0; $i<$count; $i++): ?>
@@ -47,7 +55,7 @@ $dbh = null;
                 <div class="menu-card__price"><?= $rows[$i]['menu_price'] ?>円</div>
                 <form class="menu-card-form" action="/user/ticket.php" method="post">
                     <input type="hidden" name="id" value="<?= $rows[$i]['menu_num'] ?>">
-                    <input class="menu-card-form__number" type="number" name="num" value="1">点
+                    <input class="menu-card-form__number" type="number" name="num" value="1" min="1">点
                     <input class="menu-card-form__submit" type="submit" name="menuSelectSubmit" value="選択">
                 </form>
             </li>

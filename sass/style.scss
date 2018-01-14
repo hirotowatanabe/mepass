@@ -104,6 +104,30 @@ html, body{
         display: flex;
         flex-wrap: wrap;
     }
+    &-ticket-top {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 50px;
+        &__title {
+            font-size: 30px;
+            font-weight: bold;
+            margin-right: auto;
+        }
+        &__reset {
+            @include button(#e74c3c, none, auto, 50px, 20px, #fff);
+            margin-right: 30px;
+            &:hover {
+                @include button(#c0392b, none, auto, 50px, 20px, #fff);
+            }
+        }
+        &__button {
+            @include button($primaryColor, none, auto, 50px, 20px, #fff);
+            &:hover {
+                @include button($darkPrimaryColor, auto, auto, 50px, 20px, #fff);
+            }
+        }
+    }
 }
 
 .user_footer{
@@ -496,9 +520,9 @@ html, body{
     align-items: center;
     background-color: $dividerColor;
     margin: 0 30px 30px 0;
-    padding-bottom: 10px;
     width: 300px;
     &__image-container {
+        margin-bottom: 10px;
         width: 300px;
         height: 200px;
         overflow: hidden;
@@ -509,18 +533,34 @@ html, body{
         line-height: 30px;
     }
     &__price {
-        padding: 10px;
         line-height: 26px;
     }
     &-form {
+        margin-bottom: 10px;
         &__number {
-            @include formInput(#fff, (solid 1px $dividerColor), 50px, 50px, 20px, $primaryText, 1em);
+            @include formInput(#fff, (solid 1px $dividerColor), 70px, 50px, 20px, $primaryText, 1em);
+            text-align: center;
+            font-weight: bold;
         }
         &__submit {
             @include formInput($primaryColor, none, 100px, 50px, 20px, #fff, none);
             &:hover {
                 @include formInput($darkPrimaryColor, none, 100px, 50px, 20px, #fff, none);
             }
+        }
+    }
+    &__button {
+        @include button($primaryColor, none, auto, 50px, 20px, #fff);
+        margin-bottom: 10px;
+        &:hover {
+            @include button($darkPrimaryColor, none, auto, 50px, 20px, #fff);
+        }
+    }
+    &__delete {
+        @include button(#e74c3c, none, 190px, 50px, 20px, #fff);
+        margin-bottom: 10px;
+        &:hover {
+            @include button(#c0392b, none, 190px, 50px, 20px, #fff);
         }
     }
 }

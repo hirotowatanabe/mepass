@@ -29,7 +29,7 @@ if(isset($_POST['btn'])){
         if($result['mem_pass'] == $pass){
             session_start();
             $_SESSION['user']['userMail'] = $result['mem_mail'];
-            $_SESSION["user"]['userName'] = $result['mem_name_kanji'];
+            $_SESSION["user"]['userName'] = $result['mem_name'];
             header('Location: '.$reUrl);
             exit();
         }else{

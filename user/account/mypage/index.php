@@ -28,7 +28,7 @@ $dbh = null;
 <body>
     <?php include($_SERVER['DOCUMENT_ROOT']."/header.php") ?>
     <main class="user-main">
-        <a class="user-main-ticket-top__reset" href="/user/delete/">退会</a>
+        <a class="user-main-ticket-top__reset" href="/user/account/delete/">アカウントの削除</a>
     </main>
     <?php include($_SERVER['DOCUMENT_ROOT']."/footer.php") ?>
 </body>

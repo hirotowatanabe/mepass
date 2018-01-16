@@ -36,7 +36,7 @@ $dbh = null;
                 </tr>
                 <?php for($i=0; $i<$count; $i++): ?>
                 <tr>
-                    <td><a href="/store/order/detail.php?num=<?= $rows[$i]['order_num'] ?>"><?= $rows[$i]['order_num'] ?></a></td>
+                    <td><a href="/store/order/detail.php?id=<?= $rows[$i]['order_num'] ?>"><?= $rows[$i]['order_num'] ?></a></td>
                     <td><?= $rows[$i]['mem_name'] ?>様</td>
                     <td><?= $rows[$i]['order_pay'] ?></td>
                     <td><?= $rows[$i]['order_datetime'] ?></td>

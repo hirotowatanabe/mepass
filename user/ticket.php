@@ -73,7 +73,7 @@ if(isset($_SESSION['ticket'])){
             <h3 class="user-main-ticket-top__title">選択中のチケット</h3>
             <?php if(isset($_SESSION["ticket"])): ?>
                 <a class="user-main-ticket-top__reset" href="ticket.php?reset=true">選択中のチケットをリセット</a>
-                <a class="user-main-ticket-top__button" href="ticket.php?reset=true">注文に進む</a>
+                <a class="user-main-ticket-top__button" href="order.php">注文に進む</a>
             <?php endif; ?>
         </div>
         <?php if($msg != ''): ?>

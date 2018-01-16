@@ -22,11 +22,12 @@ $msg = '';
         <?php endif; ?>
             <section class="user-main-form__section">
                 <h4 class="user-main-form__title">決済方法</h4>
-                <label><input type="radio" name="pay" value="local">現地決済</label>
+                <label><input type="radio" name="pay" value="local" required>現地決済</label>
             </section>
             <section class="user-main-form__section">
-                <h4 class="user-main-form__title">受付予定日時</h4>
-                <input type="date" name="date"><input type="time" name="time">
+                <h4 class="user-main-form__title">来店予定日時</h4>
+                <input class="user-main-form__text" type="date" name="date" required>
+                <input class="user-main-form__text" type="time" name="time" required>
             </section>
             <?php if($UserMail == ''): ?>
                 <section class="user-main-form__section">

@@ -4,6 +4,7 @@ include('login_chk.php');
 $pageTitle = 'フィード';
 $searchValue = '';
 $msg = '';
+$copy = '';
 
 if(isset($_POST['searchButton'])){
     $searchValue = $_POST['searchValue'];
@@ -20,7 +21,7 @@ try{
         exit('DB接続失敗');
     }
     $dbh->query('set names utf8');
-    $sql = "select * from t_menu where menu_name like '%".$searchValue."%'";
+    $sql = "select * from t_menu, t_store where t_menu.store_num = t_store.store_num and t_menu.menu_name like '%".$searchValue."%' order by t_menu.store_num";
     $stmt = $dbh->query($sql);
     while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
         $rows[] = $result;
@@ -37,16 +38,30 @@ $dbh = null;
 <body>
     <?php include($_SERVER['DOCUMENT_ROOT']."/header.php") ?>
     <main class="user-main">
-        <form class="user-main-search" action="index.php" method="post">
-            <input class="user-main-search__text" type="text" name="searchValue" value="<?= $searchValue ?>" placeholder="メニュー名検索" />
-            <input class="user-main-search__submit" type="submit" name="searchButton" value="検索" />
-        </form>
+        <div class="user-main-intro">
+            <p class="user-main-intro__desc">
+                飲食店のフローを変えていく
+            </p>
+            <p class="user-main-intro__sub-desc">
+                mepassは飲食店の食券機能を集約し、顧客・店舗双方の利便性を高めたWebシステムです。
+            </p>
+            <form class="user-main-search" action="index.php" method="post">
+                <input class="user-main-search__text" type="text" name="searchValue" value="<?= $searchValue ?>" placeholder="メニュー名検索" />
+                <input class="user-main-search__submit" type="submit" name="searchButton" value="検索" />
+            </form>
+        </div>
         <?php if($msg != ''): ?>
         <p class="user-main-msg"><?= $msg ?></p>
         <?php endif; ?>
         <?php if($count != 0): ?>
         <ul class="user-main__menu">
         <?php for($i=0; $i<$count; $i++): ?>
+            <?php if($copy != $rows[$i]['store_num']): ?>
+            <li class="menu-card store-card">
+                <h3 class="user-main-ticket-top__title"><?= $rows[$i]['store_name'] ?>→</h3>
+                <a class="store-card__button" href="">もっと見る</a>
+            </li>
+            <?php endif; ?>
             <li class="menu-card">
                 <div class="menu-card__image-container">
                     <img src="/store/menu/images/<?= $rows[$i]['menu_file_name'] ?>" width="300">
@@ -59,6 +74,7 @@ $dbh = null;
                     <input class="menu-card-form__submit" type="submit" name="menuSelectSubmit" value="選択">
                 </form>
             </li>
+            <?php $copy = $rows[$i]['store_num']; ?>
         <?php endfor; ?>
         </ul>
         <?php else: ?>

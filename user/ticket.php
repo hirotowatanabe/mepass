@@ -98,7 +98,9 @@ if(isset($_SESSION['ticket'])){
             <?php endfor; ?>
             </ul>
         <?php else: ?>
-            選択中のチケットはありません。
+            <p class="user-main__no-card">
+                選択中のチケットはありません。
+            </p>
         <?php endif; ?>
     </main>
     <?php include($_SERVER['DOCUMENT_ROOT']."/footer.php") ?>

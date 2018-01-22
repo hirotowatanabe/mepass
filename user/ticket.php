@@ -28,18 +28,23 @@ if(isset($_POST['menuChangeSubmit'])){
 if(isset($_GET['delete'])){
     unset($_SESSION['ticket'][$_GET['id']]);
     $msg = '削除しました。';
-    if(count($_SESSION['ticket']) == '0'){
-        unset($_SESSION["ticket"]);
+    if(count($_SESSION['ticket']) == 0){
+        unset($_SESSION['ticket']);
+        unset($_SESSION['total']);
     }
 }
 
 //全件削除が要求された
 if(isset($_GET["reset"])){
-    unset($_SESSION["ticket"]);
+    unset($_SESSION['ticket']);
+    unset($_SESSION['total']);
     $msg = '全て削除しました。';
 }
 
 if(isset($_SESSION['ticket'])){
+    //合計金額の初期化
+    $_SESSION['total'] = 0;
+
     include($_SERVER['DOCUMENT_ROOT'].'/mysqlenv.php');
     try{
         $dbh = new PDO($pdoDsn, $pdoUser, $pdoPass);
@@ -53,6 +58,7 @@ if(isset($_SESSION['ticket'])){
             foreach($_SESSION['ticket'] as $id => $value){
                 if($result['menu_num'] == $id){
                     $rows[] = $result;
+                    $_SESSION['total'] += $result['menu_price'] * $value;
                 }
             }
         }
@@ -72,6 +78,7 @@ if(isset($_SESSION['ticket'])){
         <div class="user-main-ticket-top">
             <h3 class="user-main-ticket-top__title">選択中のチケット</h3>
             <?php if(isset($_SESSION["ticket"])): ?>
+                <div class="user-main-ticket-top__total">支払い合計：<?= $_SESSION['total'] ?>円</div>
                 <a class="user-main-ticket-top__reset" href="ticket.php?reset=true">選択中のチケットをリセット</a>
                 <a class="user-main-ticket-top__button" href="order.php">注文に進む</a>
             <?php endif; ?>

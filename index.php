@@ -40,10 +40,11 @@ $dbh = null;
     <main class="user-main">
         <div class="user-main-intro">
             <p class="user-main-intro__desc">
-                飲食店のフローを変えていく
+                注文はもっと簡単になる
             </p>
             <p class="user-main-intro__sub-desc">
-                mepassは飲食店の食券機能を集約し、顧客・店舗双方の利便性を高めたWebシステムです。
+                mepassならお気に入りの店舗はもちろん、初めて行く店舗でもスマートに注文が行えます。
+                <a class="user-main-intro__link" href="">詳しく知る</a>
             </p>
             <form class="user-main-search" action="index.php" method="post">
                 <input class="user-main-search__text" type="text" name="searchValue" value="<?= $searchValue ?>" placeholder="メニュー名検索" />

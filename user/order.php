@@ -13,6 +13,7 @@ $msg = '';
         <div class="user-main-ticket-top">
             <h3 class="user-main-ticket-top__title">注文オプション</h3>
             <?php if(isset($_SESSION["ticket"])): ?>
+                <div class="user-main-ticket-top__total">支払い合計：<?= $_SESSION['total'] ?>円</div>
                 <a class="user-main-ticket-top__reset" href="ticket.php">キャンセル</a>
                 <input class="user-main-ticket-top__button" type="submit" name="btn" value="注文確定">
             <?php endif; ?>

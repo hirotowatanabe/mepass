@@ -45,7 +45,7 @@ $dbh = null;
             <div class="admin-main__menu">
             <?php if($count != 0): ?>
                 <?php for($i=0; $i<$count; $i++): ?>
-                    <div class="menu-card">
+                    <div class="menu-card menu-card--3">
                         <div class="menu-card__image-container">
                             <img src="images/<?= $rows[$i]["menu_file_name"] ?>" width="300">
                         </div>

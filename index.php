@@ -58,12 +58,12 @@ $dbh = null;
         <ul class="user-main__menu">
         <?php for($i=0; $i<$count; $i++): ?>
             <?php if($copy != $rows[$i]['store_num']): ?>
-            <li class="menu-card store-card">
+            <li class="menu-card menu-card--4 store-card">
                 <h3 class="user-main-ticket-top__title"><?= $rows[$i]['store_name'] ?>→</h3>
                 <a class="store-card__button" href="">もっと見る</a>
             </li>
             <?php endif; ?>
-            <li class="menu-card">
+            <li class="menu-card menu-card--4">
                 <div class="menu-card__image-container">
                     <img src="/store/menu/images/<?= $rows[$i]['menu_file_name'] ?>" width="300">
                 </div>
@@ -79,7 +79,7 @@ $dbh = null;
         <?php endfor; ?>
         </ul>
         <?php else: ?>
-            <p>メニューが見つかりませんでした。</p>
+            <p class="user-main-msg">メニューが見つかりませんでした。</p>
         <?php endif; ?>
     </main>
     <?php include($_SERVER['DOCUMENT_ROOT']."/footer.php") ?>

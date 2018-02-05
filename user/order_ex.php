@@ -57,8 +57,10 @@ if(isset($_POST['btn'])){
         <?php if($msg != ''): ?>
         <p class="user-main-msg"><?= $msg ?></p>
         <?php endif; ?>
-        <h4 class="user-main-form__title">注文番号</h4>
-        <?= $order_num ?>
+        <section class="user-main-form__section">
+            <h4 class="user-main-form__title">注文番号</h4>
+            <?= $order_num ?>
+        </section>
     </main>
     <?php include($_SERVER['DOCUMENT_ROOT']."/footer.php") ?>
 </body>

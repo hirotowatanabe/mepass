@@ -14,6 +14,14 @@ try{
         exit('DB接続失敗');
     }
     $dbh->query('set names utf8');
+    if(isset($_GET['changeStatus'])){
+        $mid = $_GET['mid'];
+        $status = $_GET['changeStatus'];
+        $sql = " update t_order_ticket set ot_status = :status where order_num = :id and menu_num = :mid";
+        $stmt = $dbh->prepare($sql);
+        $params = array(':status' => $status, ':id' => $id, ':mid' => $mid);
+        $stmt->execute($params);
+    }
     $sql = " select * from t_order, t_order_ticket, t_menu, t_member ";
     $sql .= " where t_order.order_num = ".$id;
     $sql .= " and t_order.order_num = t_order_ticket.order_num ";
@@ -22,6 +30,11 @@ try{
     $stmt = $dbh->query($sql);
     while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
         $rows[] = $result;
+        if($result['ot_status'] == '1'){
+            $dispStatus[] = '未提供';
+        }else if($result['ot_status'] == '2'){
+            $dispStatus[] = '提供済み';
+        }
     }
     $count = $stmt->rowCount();
 }catch(PDOException $e){
@@ -63,13 +76,22 @@ $dbh = null;
                 <?php if($count != 0): ?>
                 <table>
                     <tr>
-                        <th>提供商品</th><th>数量</th><th>ステータス</th>
+                        <th>提供商品</th><th>数量</th><th>ステータス</th><th>ステータス変更</th>
                     </tr>
                     <?php for($i=0; $i<$count; $i++): ?>
                     <tr>
                         <td><?= $rows[$i]['menu_name'] ?></a></td>
                         <td><?= $rows[$i]['menu_amount'] ?></td>
-                        <td><?= '未提供' ?></td>
+                        <td><?= $dispStatus[$i] ?></td>
+                        <td>
+                            <div class="admin-main-status">
+                                <?php if($rows[$i]['ot_status'] == '1'): ?>
+                                <a class="admin-main-status__button1" href="/store/order/detail.php?id=<?= $id ?>&mid=<?= $rows[$i]['menu_num'] ?>&changeStatus=2">提供済み</a>
+                                <?php elseif($rows[$i]['ot_status'] == '2'): ?>
+                                <a class="admin-main-status__button2" href="/store/order/detail.php?id=<?= $id ?>&mid=<?= $rows[$i]['menu_num'] ?>&changeStatus=1">未提供</a>
+                                <?php endif; ?>
+                            </div>
+                        </td>
                     </tr>
                     <?php endfor; ?>
                 </table>

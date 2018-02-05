@@ -228,6 +228,19 @@ html, body{
     }
 }
 
+.user-mypage {
+    background-color: #f2f2f2;
+    padding: 50px 0;
+    &-section {
+        width: 1290px;
+        margin: 0 auto 50px auto;
+        &__title {
+            font-size: 30px;
+            font-weight: bold;
+        }
+    }
+}
+
 .login {
     display: flex;
     flex-direction: column;
@@ -340,7 +353,6 @@ html, body{
 .admin-content {
     display: flex;
     width: 100%;
-    height: calc(100vh - 80px);
 }
 
 //管理画面汎用グローバルナビゲーション
@@ -375,10 +387,12 @@ html, body{
 }
 
 .admin-main {
-    background-color: #fff;
+    background-color: #f2f2f2;
     margin-left: 300px;
     padding: 30px;
     width: calc(100% - 300px);
+    height: calc(100vh - 80px);
+    overflow-y: scroll;
     &-top {
         box-sizing: border-box;
         display: flex;
@@ -387,7 +401,7 @@ html, body{
         width: 100%;
         &-form {
             &__text {
-                @include formInput(#fff, (solid 1px $dividerColor), 500px, 50px, 20px, $primaryText, 1em);
+                @include formInput(#fff, none, 500px, 50px, 20px, $primaryText, 1em);
             }
             &__submit {
                 @include formInput($primaryColor, none, 100px, 50px, 20px, #fff, none);
@@ -434,13 +448,13 @@ html, body{
             color: $primaryText;
         }
         &__text {
-            @include formInput(#fff, (solid 1px $dividerColor), 800px, 50px, 20px, $primaryText, 1em);
+            @include formInput(#fff, none, 800px, 50px, 20px, $primaryText, 1em);
         }
         &__file {
             display: flex;
             align-items: center;
             &-button {
-                @include button(#fff, (solid 1px $dividerColor), 200px, 50px, 20px, $dividerColor);
+                @include button(#fff, none, 200px, 50px, 20px, $dividerColor);
                 margin-right: 20px;
                 &:hover {
                     @include button($dividerColor, none, 200px, 50px, 20px, #fff);
@@ -482,6 +496,22 @@ html, body{
     }
     &-section {
         margin-bottom: 50px;
+    }
+    &-status {
+        display: flex;
+        &__button1 {
+            @include button($primaryColor, none, auto, 30px, 20px, #fff);
+            margin-right: 20px;
+            &:hover {
+                @include button($darkPrimaryColor, none, auto, 30px, 20px, #fff);
+            }
+        }
+        &__button2 {
+            @include button(#e74c3c, none, auto, 30px, 20px, #fff);
+            &:hover {
+                @include button(#c0392b, none, auto, 30px, 20px, #fff);
+            }
+        }
     }
 }
 
@@ -588,7 +618,10 @@ html, body{
     border-radius: 5px;
     margin-bottom: 30px;
     width: 300px;
-    &:not(:nth-child(4n)) {
+    &--3:not(:nth-child(3n)) {
+        margin-right: 30px;
+    }
+    &--4:not(:nth-child(4n)) {
         margin-right: 30px;
     }
     &__image-container {
@@ -628,10 +661,10 @@ html, body{
         }
     }
     &__delete {
-        @include button(#e74c3c, none, 190px, 50px, 20px, #fff);
+        @include button(#e74c3c, none, 200px, 50px, 20px, #fff);
         margin-bottom: 10px;
         &:hover {
-            @include button(#c0392b, none, 190px, 50px, 20px, #fff);
+            @include button(#c0392b, none, 200px, 50px, 20px, #fff);
         }
     }
 }
@@ -644,10 +677,10 @@ html, body{
         margin-bottom: 30px;
     }
     &__button {
-        @include button(#fff, (solid 1px #222), auto, 50px, 20px, #222);
-        margin-bottom: 10px;
+        @include button(#fff, (solid 1px #e67e22), auto, 50px, 20px, #e67e22);
+        transition: all .3s linear;
         &:hover {
-            opacity: 0.5;
+            @include button(#e67e22, none, auto, 50px, 20px, #fff);
         }
     }
 }

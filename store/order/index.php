@@ -10,7 +10,7 @@ try{
         exit('DB接続失敗');
     }
     $dbh->query('set names utf8');
-    $sql = "select * from t_order, t_member where t_order.mem_mail = t_member.mem_mail";
+    $sql = "select * from t_order, t_member where t_order.mem_mail = t_member.mem_mail order by t_order.order_datetime";
     $stmt = $dbh->query($sql);
     while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
         $rows[] = $result;

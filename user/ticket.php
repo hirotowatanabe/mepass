@@ -27,7 +27,7 @@ if(isset($_POST['menuChangeSubmit'])){
 //個別削除が要求された
 if(isset($_GET['delete'])){
     unset($_SESSION['ticket'][$_GET['id']]);
-    $msg = '削除しました。';
+    $msg = '削除しました。<a href="/">商品を追加する。</a>';
     if(count($_SESSION['ticket']) == 0){
         unset($_SESSION['ticket']);
         unset($_SESSION['total']);
@@ -38,7 +38,7 @@ if(isset($_GET['delete'])){
 if(isset($_GET["reset"])){
     unset($_SESSION['ticket']);
     unset($_SESSION['total']);
-    $msg = '全て削除しました。';
+    $msg = '全て削除しました。<a href="/">商品を追加する。</a>';
 }
 
 if(isset($_SESSION['ticket'])){
@@ -89,7 +89,7 @@ if(isset($_SESSION['ticket'])){
         <?php if(isset($_SESSION["ticket"])): ?>
             <ul class="user-main__menu">
             <?php for($i=0; $i<count($rows); $i++): ?>
-                <li class="menu-card">
+                <li class="menu-card menu-card--4">
                     <div class="menu-card__image-container">
                         <img src="/store/menu/images/<?= $rows[$i]['menu_file_name'] ?>" width="300">
                     </div>

@@ -31,6 +31,14 @@ $pageTitle = "メニュー管理";
                         </div>
                     </div>
                 </section>
+
+                <img id="select-image">
+                <!-- 切り抜き範囲をhiddenで保持する -->
+                <input type="hidden" id="upload-image-x" name="fileDataX" value="0"/>
+                <input type="hidden" id="upload-image-y" name="fileDataY" value="0"/>
+                <input type="hidden" id="upload-image-w" name="fileDataW" value="0"/>
+                <input type="hidden" id="upload-image-h" name="fileDataH" value="0"/>
+
                 <input class="admin-main-form__submit" type="submit" name="btn" value="次へ">
             </form>
         </main>

@@ -27,10 +27,10 @@ $dbh = null;
 <?php include($_SERVER['DOCUMENT_ROOT']."/head.php") ?>
 <body>
     <?php include($_SERVER['DOCUMENT_ROOT']."/header.php") ?>
-    <main class="user-mypage">
+    <main class="user-main user-mypage">
         <section class="user-mypage-section">
             <h2 class="user-mypage-section__title">直近の予約</h2>
-            <?= $rows[0]['order_datetime']; ?>
+            <?//= $rows[0]['order_datetime']; ?>
         </section>
         <h2>アカウント管理</h2>
         <a class="" href="/user/account/delete/">アカウントの削除</a>

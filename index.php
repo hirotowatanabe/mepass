@@ -58,15 +58,13 @@ $dbh = null;
         <ul class="user-main__menu">
         <?php for($i=0; $i<$count; $i++): ?>
             <?php if($copy != $rows[$i]['store_num']): ?>
-            <li class="menu-card menu-card--4 store-card">
-                <h3 class="user-main-ticket-top__title"><?= $rows[$i]['store_name'] ?>→</h3>
+            <li class="menu-card store-card">
+                <h3 class="user-main-ticket-top__title"><?= $rows[$i]['store_name'] ?></h3>
                 <a class="store-card__button" href="">もっと見る</a>
             </li>
             <?php endif; ?>
-            <li class="menu-card menu-card--4">
-                <div class="menu-card__image-container">
-                    <img src="/store/menu/images/<?= $rows[$i]['menu_file_name'] ?>" width="300">
-                </div>
+            <li class="menu-card">
+                <img class="menu-card__image" src="/store/menu/images/<?= $rows[$i]['menu_file_name'] ?>">
                 <div class="menu-card__name"><?= $rows[$i]['menu_name'] ?></div>
                 <div class="menu-card__price"><?= $rows[$i]['menu_price'] ?>円</div>
                 <form class="menu-card-form" action="/user/ticket.php" method="post">

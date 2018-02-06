@@ -52,36 +52,69 @@ html, body{
 }
 
 .user-header{
+    position: fixed;
+    box-shadow: 0px 5px 11px 0px rgba(50, 50, 50, 0.08);
     background-color: #fff;
+    padding: 0 50px;
+    width: 100%;
+    height: 50px;
+    &__title {
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 30px;
+        a {
+            color: #e67e22;
+        }
+    }
     &__list {
         display: flex;
-        justify-content: flex-end;
         align-items: center;
-        margin: 0 auto;
-        width: 1290px;
-        height: 80px;
+        height: 50px;
     }
     &__item {
         color: #222;
-        margin-right: 10px;
         a, i {
             color: #222;
         }
-        &:not(:first-child):not(:last-child) {
+        &:not(:last-child) {
             margin-right: 10px;
         }
-        &:first-child {
+    }
+    //スマホサイズ
+    @media(max-width: 500px) {
+        padding: 0 10px;
+        height: 100px;
+        &__list {
+            justify-content: space-between;
+        }
+        &__search-text {
+            display: none;
+        }
+        &__name {
+            display: block;
+        }
+    }
+    @media(min-width: 500px) {
+        &__title {
             margin-right: auto;
-            font-weight: bold;
-            font-size: 30px;
-            a {
-                color: #e67e22;
-            }
+        }
+        &__nav {
+            display: flex;
+            justify-content: flex-end;
+        }
+        &__name {
+            margin-right: 10px;
         }
     }
 }
 
 .user-main {
+    padding-top: 50px;
+    @media(max-width: 500px) {
+        padding-top: 100px;
+    }
     background-color: #f2f2f2;
     &-intro {
         display: flex;
@@ -95,12 +128,16 @@ html, body{
         height: 500px;
         &__desc {
             margin-bottom: 30px;
+            padding: 0 10px;
+            line-height: 60px;
             font-size: 50px;
             font-weight: bold;
             color: #fff;
         }
         &__sub-desc {
             margin-bottom: 50px;
+            padding: 0 10px;
+            line-height: 22px;
             font-size: 18px;
             color: #fff;
         }
@@ -111,9 +148,11 @@ html, body{
     }
     &-search {
         display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0 10px;
         &__text {
-            @include formInput(#fff, none, 800px, 50px, 20px, $primaryText, 1em);
-            margin-right: 20px;
+            @include formInput(#fff, none, auto, 50px, 20px, $primaryText, 1em);
         }
         &__submit {
             @include formInput(#e67e22, none, 100px, 50px, 20px, #fff, none);
@@ -121,24 +160,44 @@ html, body{
                 opacity: 0.8;
             }
         }
+        @media(min-width: 500px) {
+            &__text {
+                width: 500px;
+                margin-right: 20px;
+            }
+        }
+        @media(max-width: 500px) {
+            &__text {
+                margin-bottom: 10px;
+            }
+        }
     }
     &__menu {
         display: flex;
         flex-wrap: wrap;
-        width: 1290px;
-        margin: 0 auto;
+        justify-content: center;
     }
     &-ticket-top {
         display: flex;
-        justify-content: flex-end;
+        flex-wrap: wrap;
         align-items: center;
-        width: 1290px;
         margin: 0 auto;
-        padding: 50px 0;
+        @media(min-width: 500px) {
+            justify-content: flex-end;
+            padding: 50px 50px;
+            &__title {
+                margin-right: auto;
+            }
+        }
+        @media(max-width: 500px) {
+            padding: 50px 10px;
+            &__title, &__total, &__reset, &__button {
+                margin-bottom: 10px;
+            }
+        }
         &__title {
             font-size: 30px;
             font-weight: bold;
-            margin-right: auto;
         }
         &__total {
             margin-right: 30px;
@@ -162,8 +221,7 @@ html, body{
     &-msg {
         background-color: $dividerColor;
         border-radius: 3px;
-        width: 1290px;
-        margin: 0 auto 50px auto;
+        margin: 0 10px;
         padding: 10px;
         color: $primaryText;
         &__link {
@@ -173,9 +231,15 @@ html, body{
     }
     &-form {
         &__section {
-            margin: 0 auto;
-            padding-bottom: 50px;
-            width: 1290px;
+            @media(min-width: 500px) {
+                padding: 0 50px 30px 50px;
+            }
+            @media(max-width: 500px) {
+                padding: 0 10px 30px 10px;
+            }
+        }
+        &__item {
+            margin-bottom: 10px;
         }
         &__title {
             margin-bottom: 30px;
@@ -187,23 +251,22 @@ html, body{
         }
     }
     &__no-card {
-        width: 1290px;
-        margin: 0 auto;
         padding-bottom: 50px;
     }
 }
 
-.user_footer{
+.user-footer{
     width: 100%;
     background-color: #fff;
     padding: 30px 0 30px 0;
     nav{
         display: flex;
-        width: 60%;
+        justify-content: center;
+        //width: 100%;
         margin: 0 auto 30px auto;
     }
     nav ul{
-        width: 25%;
+        width: 100%;
     }
     nav ul h3{
         font-size: 16px;
@@ -212,7 +275,6 @@ html, body{
         color: #222;
     }
     nav ul li{
-        height: 20px;
         margin: 0 10px 0 0;
         color: #222;
     }
@@ -226,17 +288,61 @@ html, body{
         text-align: center;
         color: #222;
     }
+    @media(min-width: 500px) {
+        nav {
+            display: flex;
+            justify-content: center;
+        }
+    }
 }
 
 .user-mypage {
     background-color: #f2f2f2;
-    padding: 50px 0;
     &-section {
-        width: 1290px;
-        margin: 0 auto 50px auto;
         &__title {
             font-size: 30px;
             font-weight: bold;
+        }
+    }
+}
+
+.user-account {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    &__title {
+        text-align: center;
+        font-size: 30px;
+        color: #222;
+        margin: 30px 0;
+    }
+    &__err {
+        margin-bottom: 30px;
+        text-align: center;
+        color: #222;
+    }
+    &-form {
+        &__item {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        &__text {
+            @include formInput(#fff, none, 300px, 50px, 20px, $primaryText, 1em);
+        }
+        &__submit {
+            @include formInput(#fff, none, 300px, 50px, 20px, $primaryText, none);
+            transition: background-color 0.5s linear, color 0.5s linear;
+            &:hover {
+                @include formInput($accentColor, none, 300px, 50px, 20px, #fff, none);
+            }
+        }
+    }
+    &__link {
+        margin-bottom: 10px;
+        text-align: center;
+        a {
+            color: #222;
         }
     }
 }
@@ -245,12 +351,12 @@ html, body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #e67e22;
     width: 100%;
-    height: 100vh;
     margin: 0 auto;
     &--admin {
+        height: calc(100vh - 100px);
         background-color: $darkPrimaryColor;
+        height: 100vh;
     }
     &__title {
         text-align: center;
@@ -269,21 +375,13 @@ html, body{
             margin-bottom: 30px;
         }
         &__text {
-            @include formInput(#fff, none, 400px, 50px, 20px, $primaryText, 1em);
-            max-width: 400px;
-            @media(max-width: 400px){
-                width: 100%;
-            }
+            @include formInput(#fff, none, 300px, 50px, 20px, $primaryText, 1em);
         }
         &__submit {
-            @include formInput(#fff, none, 400px, 50px, 20px, $primaryText, none);
-            max-width: 400px;
-            @media(max-width: 400px){
-                width: 100%;
-            }
+            @include formInput(#fff, none, 300px, 50px, 20px, $primaryText, none);
             transition: background-color 0.5s linear, color 0.5s linear;
             &:hover {
-                @include formInput($accentColor, none, 400px, 50px, 20px, #fff, none);
+                @include formInput($accentColor, none, 300px, 50px, 20px, #fff, none);
             }
         }
     }
@@ -616,20 +714,13 @@ html, body{
     align-items: center;
     background-color: #fff;
     border-radius: 5px;
-    margin-bottom: 30px;
+    margin: 10px;
     width: 300px;
-    &--3:not(:nth-child(3n)) {
-        margin-right: 30px;
-    }
-    &--4:not(:nth-child(4n)) {
-        margin-right: 30px;
-    }
-    &__image-container {
-        margin-bottom: 10px;
+    height: 336px;
+    overflow: hidden;
+    &__image {
         border-radius: 5px 5px 0 0;
         width: 300px;
-        height: 200px;
-        overflow: hidden;
     }
     &__name {
         font-size: 20px;

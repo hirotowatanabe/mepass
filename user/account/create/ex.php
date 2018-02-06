@@ -1,5 +1,6 @@
 <?php
 header('Content-Type:text/html; charset=UTF-8');
+include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
 $mail = '';
 $pass = '';
 $name = '';
@@ -35,10 +36,14 @@ if(isset($_POST['btn'])){
 <!DOCTYPE html>
 <html lang="ja">
 <?php include($_SERVER['DOCUMENT_ROOT']."/head.php"); ?>
-<body class="login">
-    <h1 class="login__title">アカウントの作成が完了しました。</h1>
-    <p class="login__link">
-        <a href="/">トップページ</a>
-    </p>
+<body>
+    <?php include($_SERVER['DOCUMENT_ROOT'].'/header.php'); ?>
+    <main class="user-main user-account">
+        <h1 class="user-account__title">アカウントの作成が完了しました。</h1>
+        <p class="user-account__link">
+            <a href="/">トップページ</a>
+        </p>
+    </main>
+    <?php include($_SERVER['DOCUMENT_ROOT'].'/footer.php'); ?>
 </body>
 </html>

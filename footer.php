@@ -1,23 +1,5 @@
-<footer class="user_footer">
+<footer class="user-footer">
     <nav>
-        <ul>
-            <h3>mepassについて</h3>
-            <li><a href="#">サービス概要</a></li>
-            <li><a href="/admin/account/application/select_plan.php">利用規約</a></li>
-            <li><a href="#">プライバシー規約</a></li>
-            <li><a href="/smartorder/admin/account/login/index.php">ヘルプ</a></li>
-            <li><a href="#">お問い合わせ</a></li>
-        </ul>
-        <ul>
-            <h3>アカウント</h3>
-            <li><a href="/user/account/login/">ログイン</a></li>
-        </ul>
-        <ul>
-            <h3>利用について</h3>
-            <li><a href="#">お店を探す</a></li>
-            <li><a href="/admin/account/application/select_plan.php">お支払い方法</a></li>
-            <li><a href="/smartorder/admin/account/login/index.php">ポイントサービス</a></li>
-        </ul>
         <ul>
             <h3>加盟店の方</h3>
             <li><a href="#">検討中の方へ</a></li>

@@ -5,6 +5,7 @@ $mail = '';
 $pass = '';
 $name = '';
 $reUrl = '';
+$pageTitle = 'ユーザ登録';
 
 if(isset($_POST['btn'])){
     $mail = $_POST['mail'];
@@ -18,6 +19,15 @@ if(isset($_POST['btn'])){
             exit('DB接続失敗');
         }
         $dbh->query('set names utf8');
+        $chkSql = " select * from t_member where mem_mail = '".$mail."'";
+        $stmt = $dbh->query($chkSql);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $count = $stmt->rowCount();
+        //重複アドレス検知
+        if($count != 0){
+            header('Location: /user/account/create/?err=1');
+            exit();
+        }
         $sql = "insert into t_member values('".$mail."', '".$pass."', '".$name."')";
         $stmt = $dbh->query($sql);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -28,7 +38,6 @@ if(isset($_POST['btn'])){
     }
     $dbh = null;
 
-    session_start();
     $_SESSION['user']['userMail'] = $mail;
     $_SESSION["user"]['userName'] = $name;
 }

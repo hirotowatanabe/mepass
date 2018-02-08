@@ -3,6 +3,12 @@ header("Content-Type:text/html; charset=UTF-8");
 include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
 $pageTitle = 'ユーザ登録';
 $reUrl = '';
+$errMsg = '';
+
+if($UserMail != ''){
+    header('Location: /');
+    exit();
+}
 
 //アクセス元URL取得
 if(isset($_GET['reUrl'])){
@@ -10,6 +16,13 @@ if(isset($_GET['reUrl'])){
 }else{
     if(isset($_SERVER['HTTP_REFERER'])){
         $reUrl = $_SERVER['HTTP_REFERER'];
+    }
+}
+
+//エラーメッセージ分岐
+if(isset($_GET['err'])){
+    if($_GET['err'] == '1'){
+        $errMsg = "既に登録されているメールアドレスです。";
     }
 }
 ?>
@@ -20,6 +33,9 @@ if(isset($_GET['reUrl'])){
     <?php include($_SERVER['DOCUMENT_ROOT'].'/header.php'); ?>
     <main class="user-main user-account">
         <h1 class="user-account__title">ユーザ登録</h1>
+        <?php if($errMsg != ''): ?>
+        <p class="user-account__err"><?= $errMsg ?>
+        <?php endif; ?>
         <form action="ex.php" method="post">
             <p class="user-account-form__item">
                 <input class="user-account-form__text" type="text" name="mail" value="" placeholder="メールアドレス" required>

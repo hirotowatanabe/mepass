@@ -1,13 +1,17 @@
 <?php
 header('Content-Type:text/html; charset=UTF-8');
 include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
-$pageTitle = 'フィード';
-$searchValue = '';
+$pageTitle = '店舗';
+$id = '';
 $msg = '';
-$copy = '';
 
-if(isset($_POST['searchButton'])){
-    $searchValue = $_POST['searchValue'];
+if(isset($_POST['id'])){
+    $id = $_POST['id'];
+}else if(isset($_GET['id'])){
+    $id = $_GET['id'];
+}else{
+    header('Location: /');
+    exit();
 }
 
 if(isset($_GET['select'])){
@@ -21,7 +25,13 @@ try{
         exit('DB接続失敗');
     }
     $dbh->query('set names utf8');
-    $sql = "select * from t_menu, t_store where t_menu.store_num = t_store.store_num and t_menu.menu_name like '%".$searchValue."%' order by t_menu.store_num";
+    $storeSql = " select * from t_store ";
+    $storeSql .= " where store_num = ".$id;
+    $stmt = $dbh->query($storeSql);
+    $storeResult = $stmt->fetch(PDO::FETCH_ASSOC);
+    $storeCount = $stmt->rowCount();
+    $sql = " select * from t_menu ";
+    $sql .= " where store_num = ".$id;
     $stmt = $dbh->query($sql);
     while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
         $rows[] = $result;
@@ -38,18 +48,10 @@ $dbh = null;
 <body>
     <?php include($_SERVER['DOCUMENT_ROOT']."/header.php") ?>
     <main class="user-main">
-        <div class="user-main-intro">
-            <p class="user-main-intro__desc">
-                注文はもっと簡単になる
-            </p>
-            <p class="user-main-intro__sub-desc">
-                mepassならお気に入りの店舗はもちろん、初めて行く店舗でもスマートに注文が行えます。
-                <a class="user-main-intro__link" href="user/about.php">詳しく知る</a>
-            </p>
-            <form class="user-main-search" action="index.php" method="post">
-                <input class="user-main-search__text" type="text" name="searchValue" value="<?= $searchValue ?>" placeholder="メニュー名検索" />
-                <input class="user-main-search__submit" type="submit" name="searchButton" value="検索" />
-            </form>
+        <div class="user-main-ticket-top">
+            <h3 class="user-main-ticket-top__title"><?= $storeResult['store_name'] ?></h3>
+            <div class="user-main-ticket-top__total">電話番号：<?= $storeResult['store_tel'] ?></div>
+            <div class="user-main-ticket-top__total">住所：〒<?= $storeResult['store_post'] ?>&nbsp;<?= $storeResult['store_pref'].$storeResult['store_city'].$storeResult['store_add'] ?></div>
         </div>
         <?php if($msg != ''): ?>
         <p class="user-main-msg"><?= $msg ?></p>
@@ -57,25 +59,18 @@ $dbh = null;
         <?php if($count != 0): ?>
         <ul class="user-main__menu">
         <?php for($i=0; $i<$count; $i++): ?>
-            <?php if($copy != $rows[$i]['store_num']): ?>
-            <li class="menu-card store-card">
-                <h3 class="user-main-ticket-top__title"><?= $rows[$i]['store_name'] ?></h3>
-                <a class="store-card__button" href="/user/store.php?id=<?= $rows[$i]['store_num'] ?>">もっと見る</a>
-            </li>
-            <?php endif; ?>
             <li class="menu-card">
                 <img class="menu-card__image" src="/store/menu/images/<?= $rows[$i]['menu_file_name'] ?>">
                 <div class="menu-card__name"><?= $rows[$i]['menu_name'] ?></div>
                 <div class="menu-card__price"><?= $rows[$i]['menu_price'] ?>円</div>
                 <form class="menu-card-form" action="/user/ticket.php" method="post">
                     <input type="hidden" name="id" value="<?= $rows[$i]['menu_num'] ?>">
-                    <input type="hidden" name="back" value="index">
-                    <input type="hidden" name="storeId" value="<?= $rows[$i]['store_num'] ?>">
+                    <input type="hidden" name="back" value="store">
+                    <input type="hidden" name="storeId" value="<?= $storeResult['store_num'] ?>">
                     <input class="menu-card-form__number" type="number" name="num" value="1" min="1">点
                     <input class="menu-card-form__submit" type="submit" name="menuSelectSubmit" value="選択">
                 </form>
             </li>
-            <?php $copy = $rows[$i]['store_num']; ?>
         <?php endfor; ?>
         </ul>
         <?php else: ?>

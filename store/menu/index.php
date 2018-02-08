@@ -15,7 +15,9 @@ try{
         exit('DB接続失敗');
     }
     $dbh->query('set names utf8');
-    $sql = "select * from t_menu where menu_name like '%".$searchValue."%'";
+    $sql = " select * from t_menu ";
+    $sql .= " where store_num = ".$storeNum;
+    $sql .= " and menu_name like '%".$searchValue."%'";
     $stmt = $dbh->query($sql);
     while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
         $rows[] = $result;

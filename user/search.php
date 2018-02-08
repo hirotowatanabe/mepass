@@ -15,30 +15,32 @@ if(isset($_POST['searchSubmit'])){
     $pref = $_POST['pref'];
     $city = $_POST['city'];
     $add = $_POST['add'];
-}
 
-include($_SERVER['DOCUMENT_ROOT'].'/mysqlenv.php');
-try{
-    $dbh = new PDO($pdoDsn, $pdoUser, $pdoPass);
-    if($dbh == null){
-        exit('DB接続失敗');
+    include($_SERVER['DOCUMENT_ROOT'].'/mysqlenv.php');
+    try{
+        $dbh = new PDO($pdoDsn, $pdoUser, $pdoPass);
+        if($dbh == null){
+            exit('DB接続失敗');
+        }
+        $dbh->query('set names utf8');
+        $sql = " select * from t_store ";
+        $sql .= " where store_name like '%".$name."%' ";
+        $sql .= " and store_pref like '%".$pref."%' ";
+        $sql .= " and store_city like '%".$city."%' ";
+        $sql .= " and store_add like '%".$add."%' ";
+        $stmt = $dbh->query($sql);
+        while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $rows[] = $result;
+        }
+        $count = $stmt->rowCount();
+    }catch(PDOException $e){
+        echo 'Error:'.$e->getMessage();
+        die();
     }
-    $dbh->query('set names utf8');
-    $sql = " select * from t_store ";
-    $sql .= " where store_name like '%".$name."%' ";
-    $sql .= " and store_pref like '%".$pref."%' ";
-    $sql .= " and store_city like '%".$city."%' ";
-    $sql .= " and store_add like '%".$add."%' ";
-    $stmt = $dbh->query($sql);
-    while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
-        $rows[] = $result;
-    }
-    $count = $stmt->rowCount();
-}catch(PDOException $e){
-    echo 'Error:'.$e->getMessage();
-    die();
+    $dbh = null;
+
+    $msg = $count.'件見つかりました。';
 }
-$dbh = null;
 ?>
 <!DOCTYPE html>
 <?php include($_SERVER['DOCUMENT_ROOT']."/head.php") ?>
@@ -70,19 +72,23 @@ $dbh = null;
         <?php if($msg != ''): ?>
         <p class="user-main-msg"><?= $msg ?></p>
         <?php endif; ?>
-        <?php if($count != 0): ?>
-            <ul>
-            <?php for($i=0; $i<count($rows); $i++): ?>
-                <li>
-                    <?= $rows[$i]['store_name'] ?>
-                </li>
-            <?php endfor; ?>
-            </ul>
-        <?php else: ?>
-            <p>
-                該当結果はありません。条件を変更して検索してください。
-            </p>
+        <section class="user-main-form__section">
+        <?php if(isset($_POST['searchSubmit'])): ?>
+            <?php if($count != 0): ?>
+                <table>
+                <?php for($i=0; $i<count($rows); $i++): ?>
+                    <tr>
+                        <td><a href="/user/store.php?id=<?= $rows[$i]['store_num'] ?>"><?= $rows[$i]['store_name'] ?></a></td>
+                    </tr>
+                <?php endfor; ?>
+                </table>
+            <?php else: ?>
+                <p>
+                    該当結果はありません。条件を変更して検索してください。
+                </p>
+            <?php endif; ?>
         <?php endif; ?>
+        </section>
     </main>
     <?php include($_SERVER['DOCUMENT_ROOT']."/footer.php") ?>
 </body>

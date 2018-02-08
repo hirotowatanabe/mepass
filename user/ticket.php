@@ -6,15 +6,31 @@ $msg = '';
 
 //メニュー選択
 if(isset($_POST['menuSelectSubmit'])){
-    if(isset($_SESSION['ticket'][$_POST['id']])){
-        //数量追加処理
-        $_SESSION['ticket'][$_POST['id']] += $_POST['num'];
-    }else{
-        //新規追加処理
-        $_SESSION['ticket'][$_POST['id']] = $_POST['num'];
+    //複数店舗同時注文不可
+    $storeId = $_POST['storeId'];
+    if(!isset($_SESSION['storeSelect'])){
+        $_SESSION['storeSelect'] = $storeId;
     }
-    header('Location: /?select=true');
-    exit();
+    if($_SESSION['storeSelect'] == $storeId){
+        if(isset($_SESSION['ticket'][$_POST['id']])){
+            //数量追加処理
+            $_SESSION['ticket'][$_POST['id']] += $_POST['num'];
+        }else{
+            //新規追加処理
+            $_SESSION['ticket'][$_POST['id']] = $_POST['num'];
+        }
+        //追加後自動遷移処理
+        if($_POST['back'] == 'index'){
+            header('Location: /?select=true');
+            exit();
+        }else if($_POST['back'] == 'store'){
+            $storeId = $_POST['storeId'];
+            header('Location: /user/store.php?select=true&id='.$storeId);
+            exit();
+        }
+    }else{
+        $msg = '1度の注文で複数の店舗に注文することは出来ません。他の店舗へ切り替えるには<a class="user-main-msg__link" href="ticket.php?reset=true">選択中のチケットをリセット</a>して下さい。';
+    }
 }
 
 //数量変更
@@ -27,10 +43,11 @@ if(isset($_POST['menuChangeSubmit'])){
 //個別削除が要求された
 if(isset($_GET['delete'])){
     unset($_SESSION['ticket'][$_GET['id']]);
-    $msg = '削除しました。<a href="/">商品を追加する。</a>';
+    $msg = '削除しました。<a class="user-main-msg__link" href="/">商品を追加する。</a>';
     if(count($_SESSION['ticket']) == 0){
         unset($_SESSION['ticket']);
         unset($_SESSION['total']);
+        unset($_SESSION['storeSelect']);
     }
 }
 
@@ -38,7 +55,8 @@ if(isset($_GET['delete'])){
 if(isset($_GET["reset"])){
     unset($_SESSION['ticket']);
     unset($_SESSION['total']);
-    $msg = '全て削除しました。<a href="/">商品を追加する。</a>';
+    unset($_SESSION['storeSelect']);
+    $msg = '全て削除しました。<a class="user-main-msg__link" href="/">商品を追加する。</a>';
 }
 
 if(isset($_SESSION['ticket'])){
@@ -89,7 +107,7 @@ if(isset($_SESSION['ticket'])){
         <?php if(isset($_SESSION["ticket"])): ?>
             <ul class="user-main__menu">
             <?php for($i=0; $i<count($rows); $i++): ?>
-                <li class="menu-card menu-card--4">
+                <li class="menu-card">
                     <img class="menu-card__image" src="/store/menu/images/<?= $rows[$i]['menu_file_name'] ?>">
                     <div class="menu-card__name"><?= $rows[$i]['menu_name'] ?></div>
                     <div class="menu-card__price"><?= $rows[$i]['menu_price'] ?>円</div>

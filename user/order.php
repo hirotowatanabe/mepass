@@ -27,13 +27,18 @@ $msg = '';
             </section>
             <section class="user-main-form__section">
                 <h4 class="user-main-form__title">来店予定日時</h4>
-                <input class="user-main-form__text" type="date" name="date" required>
-                <input class="user-main-form__text" type="time" name="time" required>
+                <div class="user-main-form__item">
+                    <input class="user-main-form__text" type="date" name="date" value="<?= date('Y-m-d') ?>" required>
+                </div>
+                <div class="user-main-form__item">
+                    <input class="user-main-form__text" type="time" name="time" value="<?= date('H:i') ?>" required>
+                </div>
+
             </section>
             <?php if($UserMail == ''): ?>
                 <section class="user-main-form__section">
-                    <h4 class="user-main-form__title">メールアドレス</h4>
-                    <input type="text" name="mail">
+                    <h4 class="user-main-form__title">メールアドレス<br>(会員の方は入力不要です。上部のメニューよりログインして下さい。)</h4>
+                    <input class="user-main-form__text" type="text" name="mail" required>
                 </section>
             <?php endif; ?>
         </form>

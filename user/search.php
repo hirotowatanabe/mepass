@@ -49,7 +49,7 @@ if(isset($_POST['searchSubmit'])){
     <main class="user-main">
         <div class="user-main-ticket-top">
             <h3 class="user-main-ticket-top__title">店舗検索</h3>
-            <form action="search.php" method="post">
+            <form class="user-main-search__form" action="search.php" method="post">
                 <section class="user-main-form__section">
                     <h4 class="user-main-form__title">店舗名指定</h4>
                     <input class="user-main-form__text" type="text" name="name" value="<?= $name ?>" />

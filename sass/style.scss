@@ -685,12 +685,12 @@ html, body{
     }
 }
 
-//加盟店契約お申し込み
+//新規加盟企業登録
 .application {
     width: 100%;
     &_header {
         margin: 50px 0;
-        height: 100px;
+        //height: 100px;
         &_ttl {
             width: 100%;
             height: 50px;
@@ -701,11 +701,17 @@ html, body{
         }
         &_breadcrumbs {
             display: flex;
-            justify-content: center;
             width: 100%;
-            height: 50px;
+            //height: 50px;
             line-height: 50px;
             color: $primaryText;
+            @media(min-width: 565px) {
+                justify-content: center;
+            }
+            @media(max-width: 565px) {
+                flex-direction: column;
+                align-items: center;
+            }
             &_item {
                 &:not(:last-child)::after {
                     content: "\003e";
@@ -732,7 +738,7 @@ html, body{
             }
             &__section {
                 margin-bottom: 50px;
-                width: 700px;
+                width: 300px;
             }
             &__title {
                 margin-bottom: 30px;
@@ -746,7 +752,7 @@ html, body{
                 margin-bottom: 10px;
             }
             &__text {
-                @include formInput(#fff, (solid 1px $dividerColor), 700px, 50px, 20px, $primaryText, 1em);
+                @include formInput(#fff, (solid 1px $dividerColor), 300px, 50px, 20px, $primaryText, 1em);
             }
             &__submit {
                 @include formInput($primaryColor, none, 300px, 50px, 20px, #fff, none);
@@ -760,13 +766,6 @@ html, body{
                 margin-bottom: 50px;
                 &:hover {
                     @include button($darkPrimaryColor, none, 200px, 50px, 20px, #fff);
-                }
-            }
-            table {
-                margin-bottom: 50px;
-                tr th, td {
-                    border: solid 1px $dividerColor;
-                    padding: 30px;
                 }
             }
         }

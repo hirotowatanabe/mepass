@@ -1,14 +1,18 @@
 <?php
 header('Content-Type:text/html; charset=UTF-8');
 $pageTitle = '企業管理ログイン';
-$errMsg = '';
+$errMsg = $id = '';
 
 if(isset($_GET['err'])){
     if($_GET['err'] == '1'){
         $errMsg = 'パスワードに誤りがあります。';
     }else if($_GET['err'] == '2'){
-        $errMsg = '入力された企業番号は登録されていません';
+        $errMsg = '入力された企業IDは登録されていません';
     }
+}
+
+if(isset($_GET['id'])){
+    $id = $_GET['id'];
 }
 ?>
 <!DOCTYPE html>
@@ -19,10 +23,10 @@ if(isset($_GET['err'])){
     <p class="login__err"><?= $errMsg ?></p>
     <form action="chk.php" method="post">
         <p class="login-form__item">
-            <input class="login-form__text" type="text" name="num" value="" placeholder="企業番号">
+            <input class="login-form__text" type="text" name="id" value="<?= $id ?>" placeholder="企業ID" required>
         </p>
         <p class="login-form__item">
-            <input class="login-form__text" type="password" name="pass" value="" placeholder="パスワード">
+            <input class="login-form__text" type="password" name="pass" value="" placeholder="パスワード" required>
         </p>
         <p class="login-form__item">
             <input class="login-form__submit" type="submit" name="btn" value="ログイン">
@@ -32,6 +36,6 @@ if(isset($_GET['err'])){
         <a href="/store/account/login/">店舗業務管理はこちら</a>
     </p>
     <p class="login__link">
-        <a href="/company/account/application/select_plan.php">加盟店契約お申し込みはこちら</a>
+        <a href="/company/account/application/">新規加盟企業登録</a>
     </p>
 </html>

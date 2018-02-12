@@ -44,6 +44,8 @@ if(isset($_POST['btn'])){
     }
     $dbh = null;
     unset($_SESSION['ticket']);
+    unset($_SESSION['total']);
+    unset($_SESSION['storeSelect']);
 }
 ?>
 <!DOCTYPE html>

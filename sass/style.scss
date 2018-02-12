@@ -12,6 +12,11 @@ $dividerColor: #BDBDBD;
 
 @import "compass/reset";
 
+//ios Safari reset
+* {
+    -webkit-appearance: none;
+}
+
 @mixin formInput($bgColor, $border, $width, $height, $fontSize, $textColor, $textIndent) {
     background-color: $bgColor;
     border: $border;

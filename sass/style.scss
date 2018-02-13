@@ -13,7 +13,7 @@ $dividerColor: #BDBDBD;
 @import "compass/reset";
 
 //ios Safari reset
-* {
+input[type="submit"], [type="button"] {
     -webkit-appearance: none;
 }
 
@@ -42,21 +42,25 @@ $dividerColor: #BDBDBD;
     line-height: $height;
 }
 
-*{
+* {
     box-sizing: border-box;
 }
 
-a{
+a {
     text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6, div, li, input, p, span, a {
+    font-family: "Noto Sans Japanese";
 }
 
 /*一般のスタイル*/
 
-html, body{
+html, body {
     width: 100%;
 }
 
-.user-header{
+.user-header {
     position: fixed;
     box-shadow: 0px 5px 11px 0px rgba(50, 50, 50, 0.08);
     background-color: #fff;
@@ -844,7 +848,7 @@ html, body{
         margin-bottom: 30px;
     }
     &__button {
-        @include button(#fff, (solid 1px #e67e22), auto, 50px, 20px, #e67e22);
+        @include button(#fff, (solid 2px #e67e22), auto, 50px, 20px, #e67e22);
         transition: all .3s linear;
         &:hover {
             @include button(#e67e22, none, auto, 50px, 20px, #fff);

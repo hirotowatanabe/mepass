@@ -29,7 +29,7 @@ input[type="submit"], [type="button"] {
 }
 
 @mixin button($bgColor, $border, $width, $height, $fontSize, $textColor) {
-    display: block;
+    display: inline-block;
     background-color: $bgColor;
     border: $border;
     border-radius: 3px;
@@ -351,6 +351,7 @@ html, body {
         padding: 150px 0 50px 0;
     }
     &-section {
+        width: 100%;
         &:not(:last-child) {
             margin-bottom: 50px;
         }
@@ -369,16 +370,25 @@ html, body {
             margin-bottom: 20px;
         }
         &__cancel {
-            @include button(#e74c3c, none, 130px, 50px, 20px, #fff);
+            @include button(#e74c3c, none, auto, 50px, 20px, #fff);
             margin-right: 30px;
             &:hover {
-                @include button(#c0392b, none, 130px, 50px, 20px, #fff);
+                @include button(#c0392b, none, auto, 50px, 20px, #fff);
+            }
+            &--one {
+                color: #fff !important;
+                margin-right: 0;
+                @include button(#e74c3c, none, auto, 30px, 20px, #fff);
+                &:hover {
+                    @include button(#c0392b, none, auto, 30px, 20px, #fff);
+                }
+                min-width: 120px;
             }
         }
         &__consent {
-            @include button($primaryColor, none, 130px, 50px, 20px, #fff);
+            @include button($primaryColor, none, auto, 50px, 20px, #fff);
             &:hover {
-                @include button($darkPrimaryColor, none, 130px, 50px, 20px, #fff);
+                @include button($darkPrimaryColor, none, auto, 50px, 20px, #fff);
             }
         }
         &__confirm {

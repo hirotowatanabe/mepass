@@ -34,6 +34,8 @@ try{
             $dispStatus[] = '未提供';
         }else if($result['ot_status'] == '2'){
             $dispStatus[] = '提供済み';
+        }else if($result['ot_status'] == '3'){
+            $dispStatus[] = 'キャンセル済み';
         }
     }
     $count = $stmt->rowCount();

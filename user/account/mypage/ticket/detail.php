@@ -3,6 +3,8 @@ header('Content-Type:text/html; charset=UTF-8');
 include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
 $pageTitle = 'チケット詳細';
 
+$allCanceledFlag = '';
+
 if($UserMail == ''){
     header('Location: /');
     exit();
@@ -32,8 +34,12 @@ try{
         $rows[] = $result;
         if($result['ot_status'] == '1'){
             $dispStatus[] = '未提供';
+            //一点でも未提供商品がある場合、Flagにnoを格納し、一括キャンセルボタンを表示する
+            $allCanceledFlag = 'no';
         }else if($result['ot_status'] == '2'){
             $dispStatus[] = '提供済み';
+        }else if($result['ot_status'] == '3'){
+            $dispStatus[] = 'キャンセル済み';
         }
         if($result['order_pay'] == 'local'){
             $dispPay[] = '現地決済';
@@ -45,7 +51,6 @@ try{
     die();
 }
 $dbh = null;
-
 ?>
 <!DOCTYPE html>
 <?php include($_SERVER['DOCUMENT_ROOT']."/head.php") ?>
@@ -76,13 +81,20 @@ $dbh = null;
             <?php if($count != 0): ?>
             <table>
                 <tr>
-                    <th>提供商品</th><th>数量</th><th>ステータス</th>
+                    <th>提供商品</th><th>数量</th><th>ステータス</th><th>キャンセル</th>
                 </tr>
                 <?php for($i=0; $i<$count; $i++): ?>
                 <tr>
                     <td><?= $rows[$i]['menu_name'] ?></a></td>
                     <td><?= $rows[$i]['menu_amount'] ?></td>
                     <td><?= $dispStatus[$i] ?></td>
+                    <td>
+                        <?php if($rows[$i]['ot_status'] == '1'): ?>
+                        <a class="user-mypage-section__cancel user-mypage-section__cancel--one" href="/user/account/mypage/ticket/cancel.php?allCancel=no&orderNum=<?= $id ?>&menuNum=<?= $rows[$i]['menu_num'] ?>">キャンセル</a>
+                        <?php else: ?>
+                        既にキャンセル済みです。
+                        <?php endif; ?>
+                    </td>
                 </tr>
                 <?php endfor; ?>
             </table>
@@ -90,10 +102,12 @@ $dbh = null;
                 <p>該当データがありません。</p>
             <?php endif; ?>
         </section>
+        <?php if($allCanceledFlag == 'no'): ?>
         <section class="user-mypage-section">
-            <a class="user-mypage-section__cancel" href="/user/account/mypage/ticket/cancel.php?id=<?= $id ?>">キャンセル</a>
+            <a class="user-mypage-section__cancel" href="/user/account/mypage/ticket/cancel.php?allCancel=yes&orderNum=<?= $id ?>">一括キャンセル</a>
         </section>
+        <?php endif; ?>
     </main>
-    <?php include($_SERVER['DOCUMENT_ROOT']."/footer.php") ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'].'/footer.php'); ?>
 </body>
 </html>

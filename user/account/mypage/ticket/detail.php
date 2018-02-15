@@ -91,7 +91,7 @@ $dbh = null;
                     <td>
                         <?php if($rows[$i]['ot_status'] == '1'): ?>
                         <a class="user-mypage-section__cancel user-mypage-section__cancel--one" href="/user/account/mypage/ticket/cancel.php?allCancel=no&orderNum=<?= $id ?>&menuNum=<?= $rows[$i]['menu_num'] ?>">キャンセル</a>
-                        <?php else: ?>
+                        <?php elseif($rows[$i]['ot_status'] == '3'): ?>
                         既にキャンセル済みです。
                         <?php endif; ?>
                     </td>

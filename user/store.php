@@ -2,8 +2,7 @@
 header('Content-Type:text/html; charset=UTF-8');
 include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
 $pageTitle = '店舗';
-$id = '';
-$msg = '';
+$id = $msg = '';
 
 if(isset($_POST['id'])){
     $id = $_POST['id'];
@@ -30,6 +29,14 @@ try{
     $stmt = $dbh->query($storeSql);
     $storeResult = $stmt->fetch(PDO::FETCH_ASSOC);
     $storeCount = $stmt->rowCount();
+    if($UserMail != ''){
+        $followSql = " select * from t_follow ";
+        $followSql .= " where mem_mail = '".$UserMail."' ";
+        $followSql .= " and store_num = ".$id;
+        $stmt = $dbh->query($followSql);
+        $followResult = $stmt->fetch(PDO::FETCH_ASSOC);
+        $followCount = $stmt->rowCount();
+    }
     $sql = " select * from t_menu ";
     $sql .= " where store_num = ".$id;
     $stmt = $dbh->query($sql);
@@ -44,14 +51,21 @@ try{
 $dbh = null;
 ?>
 <!DOCTYPE html>
-<?php include($_SERVER['DOCUMENT_ROOT']."/head.php") ?>
+<?php include($_SERVER['DOCUMENT_ROOT'].'/head.php'); ?>
 <body>
-    <?php include($_SERVER['DOCUMENT_ROOT']."/header.php") ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'].'/header.php'); ?>
     <main class="user-main">
         <div class="user-main-ticket-top">
             <h3 class="user-main-ticket-top__title"><?= $storeResult['store_name'] ?></h3>
             <div class="user-main-ticket-top__total">電話番号：<?= $storeResult['store_tel'] ?></div>
             <div class="user-main-ticket-top__total">住所：〒<?= $storeResult['store_post'] ?>&nbsp;<?= $storeResult['store_pref'].$storeResult['store_city'].$storeResult['store_add'] ?></div>
+            <?php if($UserMail != ''): ?>
+                <?php if($followCount == 0): ?>
+                <a class="store-card__button" href="/user/follow.php?flag=follow&id=<?= $storeResult['store_num'] ?>">店舗をフォロー</a>
+                <?php else: ?>
+                <a class="store-card__button" href="/user/follow.php?flag=unfollow&id=<?= $storeResult['store_num'] ?>">フォロー中</a>
+                <? endif; ?>
+            <?php endif; ?>
         </div>
         <?php if($msg != ''): ?>
         <p class="user-main-msg"><?= $msg ?></p>
@@ -63,13 +77,16 @@ $dbh = null;
                 <img class="menu-card__image" src="/store/menu/images/<?= $rows[$i]['menu_file_name'] ?>">
                 <div class="menu-card__name"><?= $rows[$i]['menu_name'] ?></div>
                 <div class="menu-card__price"><?= $rows[$i]['menu_price'] ?>円</div>
-                <form class="menu-card-form" action="/user/ticket.php" method="post">
-                    <input type="hidden" name="id" value="<?= $rows[$i]['menu_num'] ?>">
-                    <input type="hidden" name="back" value="store">
-                    <input type="hidden" name="storeId" value="<?= $storeResult['store_num'] ?>">
-                    <input class="menu-card-form__number" type="number" name="num" value="1" min="1">点
-                    <input class="menu-card-form__submit" type="submit" name="menuSelectSubmit" value="選択">
-                </form>
+                <div class="menu-card__box">
+                    <form class="menu-card-form" action="/user/ticket.php" method="post">
+                        <input type="hidden" name="id" value="<?= $rows[$i]['menu_num'] ?>">
+                        <input type="hidden" name="back" value="store">
+                        <input type="hidden" name="storeId" value="<?= $rows[$i]['store_num'] ?>">
+                        <input class="menu-card-form__number" type="number" name="num" value="1" min="1">
+                        <span class="menu-card-form__unit">点</span>
+                        <input class="menu-card-form__submit" type="submit" name="menuSelectSubmit" value="選択">
+                    </form>
+                </div>
             </li>
         <?php endfor; ?>
         </ul>
@@ -77,6 +94,6 @@ $dbh = null;
             <p class="user-main-msg">メニューが見つかりませんでした。</p>
         <?php endif; ?>
     </main>
-    <?php include($_SERVER['DOCUMENT_ROOT']."/footer.php") ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'].'/footer.php'); ?>
 </body>
 </html>

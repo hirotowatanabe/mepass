@@ -187,6 +187,19 @@ html, body {
             }
         }
     }
+    &__section {
+        &:not(:last-child){
+            margin-bottom: 50px;
+        }
+        &:last-child {
+            padding-bottom: 50px;
+        }
+    }
+    &__title {
+        margin-bottom: 30px;
+        font-size: 30px;
+        text-align: center;
+    }
     &__menu {
         display: flex;
         flex-wrap: wrap;
@@ -238,6 +251,7 @@ html, body {
         border-radius: 3px;
         padding: 10px;
         color: $primaryText;
+        line-height: 20px;
         @media(max-width: 650px) {
             margin: 0 10px 20px 10px;
         }
@@ -819,17 +833,35 @@ html, body {
     &__price {
         line-height: 36px;
     }
+    &__box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px 0;
+        width: 100%;
+    }
     &-form {
-        margin-bottom: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
         &__number {
-            @include formInput(#fff, (solid 1px $dividerColor), 70px, 50px, 20px, $primaryText, 1em);
+            @include formInput(#fff, none, 100px, 50px, 20px, $primaryText, 1em);
+            margin-right: 10px;
             text-align: center;
             font-weight: bold;
         }
+        &__unit {
+            margin-right: 10px;
+            font-size: 20px;
+            color: #fff;
+        }
         &__submit {
-            @include formInput($primaryColor, none, 100px, 50px, 20px, #fff, none);
+            @include formInput(#e67e22, none, 100px, 50px, 20px, #fff, none);
             &:hover {
-                @include formInput($darkPrimaryColor, none, 100px, 50px, 20px, #fff, none);
+                @include formInput(#e67e22, none, 100px, 50px, 20px, #fff, none);
+                cursor: pointer;
             }
         }
     }
@@ -841,10 +873,22 @@ html, body {
         }
     }
     &__delete {
-        @include button(#e74c3c, none, 200px, 50px, 20px, #fff);
-        margin-bottom: 10px;
+        @include button(#e74c3c, none, 240px, 50px, 20px, #fff);
+        margin-top: 10px;
         &:hover {
-            @include button(#c0392b, none, 200px, 50px, 20px, #fff);
+            @include button(#c0392b, none, 240px, 50px, 20px, #fff);
+        }
+    }
+    &__add-button {
+        @include button(#848484, none, 300px, 50px, 20px, #fff);
+        border-radius: 0 0 3px 3px;
+        transition: all 0.3s linear;
+        &:hover {
+            @include button(#e67e22, none, 300px, 50px, 20px, #fff);
+            border-radius: 0 0 3px 3px;
+        }
+        i {
+            margin-right: 10px;
         }
     }
 }
@@ -852,10 +896,19 @@ html, body {
 .store-card {
     background-color: #fff;
     justify-content: center;
-    height: 336px;
-    .user-main-ticket-top__title {
-        margin-right: 0;
-        margin-bottom: 30px;
+    margin: 10px;
+    border-radius: 5px;
+    width: 300px;
+    height: 50px;
+    &__name {
+        display: block;
+        width: 300px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #222;
     }
     &__button {
         @include button(#fff, (solid 2px #e67e22), auto, 50px, 20px, #e67e22);

@@ -12,9 +12,11 @@ $add = '';
 
 if(isset($_POST['searchSubmit'])){
     $name = $_POST['name'];
-    $pref = $_POST['pref'];
-    $city = $_POST['city'];
-    $add = $_POST['add'];
+    if(isset($_POST['pref'])){
+        $pref = $_POST['pref'];
+        $city = $_POST['city'];
+        $add = $_POST['add'];
+    }
 
     include($_SERVER['DOCUMENT_ROOT'].'/mysqlenv.php');
     try{

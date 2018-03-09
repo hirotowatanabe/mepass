@@ -1,7 +1,7 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT']."/store/login_chk.php");
 header("Content-Type:text/html; charset=UTF-8");
-$pageTitle = "ダッシュボード";
+$pageTitle = '設定';
 ?>
 <!DOCTYPE html>
 <?php include($_SERVER['DOCUMENT_ROOT']."/head.php") ?>

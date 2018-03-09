@@ -5,7 +5,7 @@
         <li class="admin-header__item admin-header__item--user"><i class="fa fa-caret-down" aria-hidden="true"></i><?= $comName ?>
             <ul class="admin-header__sub-list">
                 <li class="admin-header__sub-item"><a href="/company/account/logout/">ログアウト</a></li>
-                <li class="admin-header__sub-item"><a href="/company/account/logout/">パスワード変更</a></li>
+                <li class="admin-header__sub-item"><a href="javascript:void(0);">パスワード変更（準備中）</a></li>
             </ul>
         </li>
     </ul>

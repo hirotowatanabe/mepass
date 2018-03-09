@@ -1,7 +1,7 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT']."/company/login_chk.php");
-header("Content-Type:text/html; charset=UTF-8");
-$pageTitle = "ダッシュボード";
+include($_SERVER['DOCUMENT_ROOT'].'/company/login_chk.php');
+header('Content-Type:text/html; charset=UTF-8');
+$pageTitle = '企業情報管理';
 ?>
 <!DOCTYPE html>
 <?php include($_SERVER['DOCUMENT_ROOT']."/head.php") ?>

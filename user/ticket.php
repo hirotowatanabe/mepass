@@ -89,16 +89,16 @@ if(isset($_SESSION['ticket'])){
 }
 ?>
 <!DOCTYPE html>
-<?php include($_SERVER['DOCUMENT_ROOT']."/head.php") ?>
+<?php include($_SERVER['DOCUMENT_ROOT'].'/head.php'); ?>
 <body>
-    <?php include($_SERVER['DOCUMENT_ROOT']."/header.php") ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'].'/header.php'); ?>
     <main class="user-main">
         <div class="user-main-ticket-top">
             <h3 class="user-main-ticket-top__title">選択中のチケット</h3>
-            <?php if(isset($_SESSION["ticket"])): ?>
+            <?php if(isset($_SESSION['ticket'])): ?>
                 <div class="user-main-ticket-top__total">支払い合計：<?= $_SESSION['total'] ?>円</div>
                 <a class="user-main-ticket-top__reset" href="ticket.php?reset=true">選択中のチケットをリセット</a>
-                <a class="user-main-ticket-top__button" href="order.php">注文に進む</a>
+                <a class="user-main-ticket-top__button" href="/user/order/">注文に進む</a>
             <?php endif; ?>
         </div>
         <?php if($msg != ''): ?>

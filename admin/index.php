@@ -6,12 +6,10 @@ $pageTitle = "ダッシュボード";
 <!DOCTYPE html>
 <?php include("../head.php") ?>
 <body>
-    <div id="wrapper">
-        <?php include("common.php"); ?>
-        <div class="admin_main">
-        <p>system administrator only.</p>
-        <p>this page is maintenance now.</p>
-        </div>
+    <?php include("common.php"); ?>
+    <div class="admin_main">
+    <p>system administrator only.</p>
+    <p>this page is maintenance now.</p>
     </div>
 </body>
 </html>

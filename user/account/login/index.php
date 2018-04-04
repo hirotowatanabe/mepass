@@ -1,9 +1,8 @@
 <?php
-header("Content-Type:text/html; charset=UTF-8");
+header('Content-Type:text/html; charset=UTF-8');
 include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
 $pageTitle = 'ログイン';
-$errMsg = '';
-$reUrl = '';
+$errMsg = $reUrl = '';
 
 //アクセス元URL取得
 if(isset($_GET['reUrl'])){
@@ -17,7 +16,7 @@ if(isset($_GET['reUrl'])){
 //エラーメッセージ分岐
 if(isset($_GET['err'])){
     if($_GET['err'] == '1'){
-        $errMsg = "パスワードに誤りがあります。";
+        $errMsg = 'パスワードに誤りがあります。';
     }else if($_GET['err'] == '2'){
         $errMsg = '入力されたメールアドレスは登録されていません。';
     }else if($_GET['err'] == '3'){
@@ -27,9 +26,9 @@ if(isset($_GET['err'])){
 ?>
 <!DOCTYPE html>
 <html lang="ja">
-<?php include($_SERVER['DOCUMENT_ROOT']."/head.php"); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'].'/head.php'); ?>
 <body>
-    <?php include($_SERVER['DOCUMENT_ROOT']."/header.php") ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'].'/header.php'); ?>
     <main class="user-main user-account">
         <h1 class="user-account__title">ログイン</h1>
         <?php if($errMsg != ''): ?>
@@ -37,7 +36,7 @@ if(isset($_GET['err'])){
         <?php endif; ?>
         <form action="chk.php" method="post">
             <p class="user-account-form__item">
-                <input class="user-account-form__text" type="text" name="mail" value="" placeholder="メールアドレス" required>
+                <input class="user-account-form__text" type="email" name="mail" value="" placeholder="メールアドレス" required>
             </p>
             <p class="user-account-form__item">
                 <input class="user-account-form__text" type="password" name="pass" value="" placeholder="パスワード" required>
@@ -56,6 +55,6 @@ if(isset($_GET['err'])){
         </p>
         <?php endif; ?>
     </main>
-    <?php include($_SERVER['DOCUMENT_ROOT']."/footer.php") ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'].'/footer.php'); ?>
 </body>
 </html>

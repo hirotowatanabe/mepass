@@ -8,7 +8,7 @@
             <li class="user-header__item"><a href="/user/account/login/">ログイン</a></li>
             <li class="user-header__item"><a href="/user/account/create/">ユーザ登録</a></li>
             <?php elseif($UserMail != ''): ?>
-            <li class="user-header__item"><span class="user-header__name"><?= $UserName ?>さん</span><a href="/user/account/mypage/">マイページ</a>&nbsp;<a href="/user/account/logout/">ログアウト</a></li>
+            <li class="user-header__item"><span class="user-header__name"><?= htmlspecialchars($UserName) ?>さん</span><a href="/user/account/mypage/">マイページ</a>&nbsp;<a href="/user/account/logout/">ログアウト</a></li>
             <?php endif; ?>
         </ul>
     </nav>

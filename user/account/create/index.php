@@ -22,13 +22,15 @@ if(isset($_GET['reUrl'])){
 //エラーメッセージ分岐
 if(isset($_GET['err'])){
     if($_GET['err'] == '1'){
-        $errMsg = "既に登録されているメールアドレスです。";
+        $errMsg = '既に登録されているメールアドレスです。';
+    }else if($_GET['err'] == '2'){
+        $errMsg = '正しいメールアドレスの形式ではありません。';
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
-<?php include($_SERVER['DOCUMENT_ROOT']."/head.php"); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'].'/head.php'); ?>
 <body>
     <?php include($_SERVER['DOCUMENT_ROOT'].'/header.php'); ?>
     <main class="user-main user-account">
@@ -36,9 +38,9 @@ if(isset($_GET['err'])){
         <?php if($errMsg != ''): ?>
         <p class="user-account__err"><?= $errMsg ?>
         <?php endif; ?>
-        <form action="ex.php" method="post">
+        <form action="/user/account/create/ex.php" method="post">
             <p class="user-account-form__item">
-                <input class="user-account-form__text" type="text" name="mail" value="" placeholder="メールアドレス" required>
+                <input class="user-account-form__text" type="email" name="mail" value="" placeholder="メールアドレス" required>
             </p>
             <p class="user-account-form__item">
                 <input class="user-account-form__text" type="password" name="pass" value="" placeholder="パスワード" required>

@@ -1,50 +1,58 @@
 <?php
 header('Content-Type:text/html; charset=UTF-8');
 include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
-$mail = '';
-$pass = '';
-$name = '';
-$reUrl = '';
+$mail = $pass = $name = $reUrl = '';
 $pageTitle = 'ユーザ登録';
 
-if(isset($_POST['btn'])){
-    $mail = $_POST['mail'];
-    $pass = $_POST['pass'];
-    $name = $_POST['name'];
-    $reUrl = $_POST['reUrl'];
-    include($_SERVER['DOCUMENT_ROOT'].'/mysqlenv.php');
-    try{
-        $dbh = new PDO($pdoDsn, $pdoUser, $pdoPass);
-        if($dbh == null){
-            exit('DB接続失敗');
-        }
-        $dbh->query('set names utf8');
-        $chkSql = " select * from t_member where mem_mail = '".$mail."'";
-        $stmt = $dbh->query($chkSql);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $count = $stmt->rowCount();
-        //重複アドレス検知
-        if($count != 0){
-            header('Location: /user/account/create/?err=1');
-            exit();
-        }
-        $sql = "insert into t_member values('".$mail."', '".$pass."', '".$name."')";
-        $stmt = $dbh->query($sql);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $count = $stmt->rowCount();
-    }catch(PDOException $e){
-        echo 'Error:'.$e->getMessage();
-        die();
-    }
-    $dbh = null;
-
-    $_SESSION['user']['userMail'] = $mail;
-    $_SESSION["user"]['userName'] = $name;
+//直接アクセス禁止
+if(!isset($_POST['btn'])){
+    header('Location: /user/account/create/');
+    exit();
 }
+
+$mail = $_POST['mail'];
+$pass = $_POST['pass'];
+$name = $_POST['name'];
+$reUrl = $_POST['reUrl'];
+
+//メールアドレス検証(RFC 822に沿った形式であるかどうか)
+if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
+    header('Location: /user/account/create/?err=2');
+    exit();
+}
+
+include($_SERVER['DOCUMENT_ROOT'].'/mysqlenv.php');
+try{
+    $dbh = new PDO($pdoDsn, $pdoUser, $pdoPass);
+    if($dbh == null){
+        exit('DB接続失敗');
+    }
+    $dbh->query('set names utf8');
+    $chkSql = " select * from t_member where mem_mail = '".$mail."'";
+    $stmt = $dbh->query($chkSql);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $count = $stmt->rowCount();
+    //重複アドレス検知
+    if($count != 0){
+        header('Location: /user/account/create/?err=1');
+        exit();
+    }
+    $sql = "insert into t_member values('".$mail."', '".$pass."', '".$name."')";
+    $stmt = $dbh->query($sql);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $count = $stmt->rowCount();
+}catch(PDOException $e){
+    echo 'Error:'.$e->getMessage();
+    die();
+}
+$dbh = null;
+
+$_SESSION['user']['userMail'] = $mail;
+$_SESSION['user']['userName'] = $name;
 ?>
 <!DOCTYPE html>
 <html lang="ja">
-<?php include($_SERVER['DOCUMENT_ROOT']."/head.php"); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'].'/head.php'); ?>
 <body>
     <?php include($_SERVER['DOCUMENT_ROOT'].'/header.php'); ?>
     <main class="user-main user-account">

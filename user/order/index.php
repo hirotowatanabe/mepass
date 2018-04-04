@@ -1,7 +1,9 @@
 <?php
 header('Content-Type:text/html; charset=UTF-8');
+//ログイン必須
+$loginRequired = 'true';
 include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
-$pageTitle = '注文オプション';
+$pageTitle = '来店予定日時入力';
 $msg = '';
 ?>
 <!DOCTYPE html>
@@ -11,7 +13,7 @@ $msg = '';
     <main class="user-main">
         <form action="/user/order/pay.php" method="post">
         <div class="user-main-ticket-top">
-            <h3 class="user-main-ticket-top__title">注文オプション</h3>
+            <h3 class="user-main-ticket-top__title">来店予定日時入力</h3>
             <?php if(isset($_SESSION['ticket'])): ?>
                 <div class="user-main-ticket-top__total">支払い合計：
                     <span class="js-totalDue"><?= $_SESSION['total'] ?></span>
@@ -32,12 +34,6 @@ $msg = '';
                     <input class="user-main-form__text" type="time" name="time" value="<?= date('H:i') ?>" min="<?= date('H:i') ?>" required>
                 </div>
             </section>
-            <?php if($UserMail == ''): ?>
-                <section class="user-main-form__section">
-                    <h4 class="user-main-form__title">メールアドレス<br>(会員の方は入力不要です。<a class="user-main-msg__link" href="/user/account/login/">ログイン</a>して下さい。)</h4>
-                    <input class="user-main-form__text" type="text" name="mail" required>
-                </section>
-            <?php endif; ?>
         </form>
     </main>
     <?php include($_SERVER['DOCUMENT_ROOT'].'/footer.php'); ?>

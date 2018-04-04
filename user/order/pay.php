@@ -1,5 +1,7 @@
 <?php
 header('Content-Type:text/html; charset=UTF-8');
+//ログイン必須
+$loginRequired = 'true';
 include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
 $pageTitle = '決済情報入力';
 $msg = '';
@@ -7,9 +9,6 @@ $msg = '';
 if(isset($_POST['btn'])){
     $_SESSION['order']['date'] = $_POST['date'];
     $_SESSION['order']['time'] = $_POST['time'];
-    if(isset($_POST['mail'])){
-        $_SESSION['order']['mail'] = $_POST['mail'];
-    }
 }
 ?>
 <!DOCTYPE html>

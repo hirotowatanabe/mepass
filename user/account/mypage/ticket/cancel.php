@@ -1,13 +1,10 @@
 <?php
 header('Content-Type:text/html; charset=UTF-8');
+//ログイン必須
+$loginRequired = 'true';
 include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
 $pageTitle = 'チケットキャンセル確認';
 $msg = $allCancel = $orderNum = $menuNum = '';
-
-if($UserMail == ''){
-    header('Location: /');
-    exit();
-}
 
 if(isset($_GET['allCancel'])){
     $allCancel = $_GET['allCancel'];

@@ -1,7 +1,9 @@
 <?php
 header('Content-Type:text/html; charset=UTF-8');
+//ログイン必須
+$loginRequired = 'true';
 include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
-$pay = $datetime = $mail = '';
+$pay = $datetime = '';
 if(isset($_POST['pay'])){
     $pay = $_POST['pay'];
 }else{
@@ -9,11 +11,6 @@ if(isset($_POST['pay'])){
 }
 
 $datetime = $_SESSION['order']['date'].' '.$_SESSION['order']['time'];
-if(isset($_SESSION['order']['mail'])){
-    $mail = $_SESSION['order']['mail'];
-}else{
-    $mail = $UserMail;
-}
 
 include($_SERVER['DOCUMENT_ROOT'].'/mysqlenv.php');
 try{
@@ -23,7 +20,7 @@ try{
     }
     $dbh->query('set names utf8');
     $sql = " insert into t_order(order_pay, order_datetime, mem_mail) ";
-    $sql .= " values('".$pay."', '".$datetime."', '".$mail."')";
+    $sql .= " values('".$pay."', '".$datetime."', '".$UserMail."')";
     $stmt = $dbh->query($sql);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     $count = $stmt->rowCount();

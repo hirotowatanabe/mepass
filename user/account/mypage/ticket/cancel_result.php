@@ -1,5 +1,7 @@
 <?php
 header('Content-Type:text/html; charset=UTF-8');
+//ログイン必須
+$loginRequired = 'true';
 include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
 $pageTitle = '注文キャンセル完了';
 ?>

@@ -40,6 +40,8 @@ try{
         }
         if($result['order_pay'] == 'local'){
             $dispPay[] = '現地決済';
+        }else if($result['order_pay'] == 'credit'){
+            $dispPay[] = 'クレジット決済済み';
         }
     }
     $count = $stmt->rowCount();

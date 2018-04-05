@@ -7,7 +7,7 @@ $pay = $datetime = '';
 if(isset($_POST['pay'])){
     $pay = $_POST['pay'];
 }else{
-    $pay = 'credi';
+    $pay = 'credit';
 }
 
 $datetime = $_SESSION['order']['date'].' '.$_SESSION['order']['time'];

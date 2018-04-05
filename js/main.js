@@ -32,18 +32,32 @@ $(function(){
         };
     });
 
+    //現地決済
+    $('.js-pay-local').on('click', paymentLocal);
+
     // クレジットカード決済
-    $('.js-pay').on('click', paymentProcess);
+    $('.js-pay-credit').on('click', paymentCredit);
 });
 
-function paymentProcess() {
+function paymentLocal() {
+    // 総額取得
+    const totalDue = $('.js-total-due').html();
+
+    if(window.confirm(totalDue + '円を現地決済します。注文確定しますか？')){
+        location.href = '/user/order/insert.php?pay=local';
+	}else{
+        return false;
+    }
+}
+
+function paymentCredit() {
     if (!window.PaymentRequest) {
         alert('お使いの環境はPayment Request APIに対応していません。');
         return;
     }
 
     // 総額取得
-    const totalDue = $('.js-totalDue').html();
+    const totalDue = $('.js-total-due').html();
 
     // 対応支払い方法
     const supportedInstruments = [{

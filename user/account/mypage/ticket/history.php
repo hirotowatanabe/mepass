@@ -3,7 +3,7 @@ header('Content-Type:text/html; charset=UTF-8');
 //ログイン必須
 $loginRequired = 'true';
 include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
-$pageTitle = 'マイページ';
+$pageTitle = '注文履歴';
 
 include($_SERVER['DOCUMENT_ROOT'].'/mysqlenv.php');
 try{
@@ -18,8 +18,8 @@ try{
     $sql .= " and t_order.order_num = t_order_ticket.order_num ";
     $sql .= " and t_order_ticket.menu_num = t_menu.menu_num ";
     $sql .= " and t_menu.store_num = t_store.store_num ";
-    //現在日時より後の注文を抽出
-    $sql .= " and t_order.order_datetime >= now() ";
+    //現在日時より前の注文を抽出
+    $sql .= " and t_order.order_datetime <= now() ";
     $sql .= " order by t_order.order_datetime desc ";
     $stmt = $dbh->query($sql);
     while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -39,7 +39,7 @@ $dbh = null;
     <?php include($_SERVER['DOCUMENT_ROOT'].'/header.php'); ?>
     <main class="user-main user-mypage">
         <section class="user-mypage-section">
-            <h2 class="user-mypage-section__title">注文一覧</h2>
+            <h2 class="user-mypage-section__title">注文履歴一覧</h2>
             <p>注文番号選択で詳細を確認できます。</p>
             <?php if($count != 0): ?>
             <table>
@@ -54,9 +54,8 @@ $dbh = null;
                 <?php endfor; ?>
             </table>
             <?php else: ?>
-                予約中の注文はありません。
+                注文履歴はありません。
             <?php endif; ?>
-            <p><a href="/user/account/mypage/ticket/history.php">&gt;注文履歴一覧</a></p>
         </section>
         <section class="user-mypage-section">
             <h2 class="user-mypage-section__title">アカウント管理</h2>

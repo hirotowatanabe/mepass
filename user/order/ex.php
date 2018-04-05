@@ -4,7 +4,7 @@ header('Content-Type:text/html; charset=UTF-8');
 $loginRequired = 'true';
 include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
 $pageTitle = '注文完了';
-$id = '';
+$id = $msg = '';
 
 //注文番号取得
 if(isset($_GET['id'])){
@@ -25,6 +25,7 @@ if(isset($_GET['id'])){
         <section class="user-main-form__section">
             <h4 class="user-main-form__title">注文番号</h4>
             <?= $id ?>
+            <p><a href="/user/account/mypage/ticket/detail.php?id=<?= $id ?>">詳細を確認する。</a></p>
         </section>
     </main>
     <?php include($_SERVER['DOCUMENT_ROOT'].'/footer.php'); ?>

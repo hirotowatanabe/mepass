@@ -4,8 +4,8 @@ header('Content-Type:text/html; charset=UTF-8');
 $loginRequired = 'true';
 include($_SERVER['DOCUMENT_ROOT'].'/login_chk.php');
 $pay = $datetime = '';
-if(isset($_POST['pay'])){
-    $pay = $_POST['pay'];
+if(isset($_GET['pay'])){
+    $pay = $_GET['pay'];
 }else{
     $pay = 'credit';
 }

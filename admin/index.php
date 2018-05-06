@@ -1,15 +1,57 @@
 <?php
-include("auth_chk.php");
+//include("auth_chk.php");
 header("Content-Type:text/html; charset=UTF-8");
-$pageTitle = "ダッシュボード";
+$pageTitle = 'ダッシュボード';
 ?>
 <!DOCTYPE html>
-<?php include("../head.php") ?>
+<?php include($_SERVER['DOCUMENT_ROOT'].'/head.php'); ?>
 <body>
-    <?php include("common.php"); ?>
-    <div class="admin_main">
+    <?php include($_SERVER['DOCUMENT_ROOT'].'/admin/common.php'); ?>
+    <main class="system-main">
     <p>system administrator only.</p>
     <p>this page is maintenance now.</p>
-    </div>
+    <p>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。<br>
+        コンテンツ入ります。
+    </p>
+    </main>
 </body>
 </html>

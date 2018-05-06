@@ -1,4 +1,14 @@
 $(function(){
+    //メニュートリガークリック
+    $('.js-gnav-trigger').on('click', function(){
+        $('.system-header-gnav-trigger').toggleClass('is-active');
+        if($('.system-header-gnav-trigger.is-active').length > 0){
+            $('.system-gnav').addClass('is-show');
+        }else{
+            $('.system-gnav').removeClass('is-show');
+        }
+    });
+
     $('.admin-header__item--user').hover(function(){
         $(this).children('ul').stop().slideToggle();
     });

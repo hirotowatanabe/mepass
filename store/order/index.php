@@ -1,7 +1,7 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT']."/store/login_chk.php");
-header("Content-Type:text/html; charset=UTF-8");
-$pageTitle = "注文管理";
+include($_SERVER['DOCUMENT_ROOT'].'/store/login_chk.php');
+header('Content-Type:text/html; charset=UTF-8');
+$pageTitle = '注文管理';
 
 include($_SERVER['DOCUMENT_ROOT'].'/mysqlenv.php');
 try{
@@ -10,7 +10,10 @@ try{
         exit('DB接続失敗');
     }
     $dbh->query('set names utf8');
-    $sql = "select * from t_order, t_member where t_order.mem_mail = t_member.mem_mail order by t_order.order_datetime";
+    $sql = " select * from t_order, t_member ";
+    $sql .= " where t_order.mem_mail = t_member.mem_mail ";
+    $sql .= " and t_order.store_num = ".$storeNum;
+    $sql .= " order by t_order.order_datetime ";
     $stmt = $dbh->query($sql);
     while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
         $rows[] = $result;
@@ -23,11 +26,11 @@ try{
 $dbh = null;
 ?>
 <!DOCTYPE html>
-<?php include($_SERVER['DOCUMENT_ROOT']."/head.php") ?>
+<?php include($_SERVER['DOCUMENT_ROOT'].'/head.php'); ?>
 <body>
-    <?php include($_SERVER['DOCUMENT_ROOT']."/store/header.php"); ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'].'/store/header.php'); ?>
     <div class="admin-content">
-        <?php include($_SERVER['DOCUMENT_ROOT']."/store/gnav.php"); ?>
+        <?php include($_SERVER['DOCUMENT_ROOT'].'/store/gnav.php'); ?>
         <main class="admin-main">
             <?php if($count != 0): ?>
             <table>

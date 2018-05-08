@@ -21,30 +21,38 @@ try{
         exit('DB接続失敗');
     }
     $dbh->query('set names utf8');
-    $sql = " select * from t_order, t_order_ticket, t_menu, t_store ";
-    $sql .= " where t_order.order_num = ".$id;
-    $sql .= " and t_order.order_num = t_order_ticket.order_num ";
-    $sql .= " and t_menu.menu_num = t_order_ticket.menu_num ";
-    $sql .= " and t_menu.store_num = t_store.store_num ";
-    $stmt = $dbh->query($sql);
-    while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
-        $rows[] = $result;
-        if($result['ot_status'] == '1'){
+
+    //注文基本情報取得
+    $orderSql = " select * from t_order, t_store ";
+    $orderSql .= " where t_order.order_num = ".$id;
+    $orderSql .= " and t_order.store_num = t_store.store_num ";
+    $stmt = $dbh->query($orderSql);
+    $orderResult = $stmt->fetch(PDO::FETCH_ASSOC);
+    if($orderResult['order_pay'] == 'local'){
+        $dispPay = '現地決済';
+    }else if($orderResult['order_pay'] == 'credit'){
+        $dispPay = 'クレジット決済済み';
+    }
+    $orderCount = $stmt->rowCount();
+
+    //提供商品情報取得
+    $productSql = " select * from t_order_ticket, t_menu ";
+    $productSql .= " where t_order_ticket.order_num = ".$id;
+    $productSql .= " and t_menu.menu_num = t_order_ticket.menu_num ";
+    $stmt = $dbh->query($productSql);
+    while($productResult = $stmt->fetch(PDO::FETCH_ASSOC)){
+        $rows[] = $productResult;
+        if($productResult['ot_status'] == '1'){
             $dispStatus[] = '未提供';
             //一点でも未提供商品がある場合、Flagにnoを格納し、一括キャンセルボタンを表示する
             $allCanceledFlag = 'no';
-        }else if($result['ot_status'] == '2'){
+        }else if($productResult['ot_status'] == '2'){
             $dispStatus[] = '提供済み';
-        }else if($result['ot_status'] == '3'){
+        }else if($productResult['ot_status'] == '3'){
             $dispStatus[] = 'キャンセル済み';
         }
-        if($result['order_pay'] == 'local'){
-            $dispPay[] = '現地決済';
-        }else if($result['order_pay'] == 'credit'){
-            $dispPay[] = 'クレジット決済済み';
-        }
     }
-    $count = $stmt->rowCount();
+    $productCount = $stmt->rowCount();
 }catch(PDOException $e){
     echo 'Error:'.$e->getMessage();
     die();
@@ -52,24 +60,22 @@ try{
 $dbh = null;
 ?>
 <!DOCTYPE html>
-<?php include($_SERVER['DOCUMENT_ROOT']."/head.php") ?>
+<?php include($_SERVER['DOCUMENT_ROOT'].'/head.php'); ?>
 <body>
-    <?php include($_SERVER['DOCUMENT_ROOT']."/header.php") ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'].'/header.php'); ?>
     <main class="user-main user-mypage">
         <section class="user-mypage-section">
             <h2 class="user-mypage-section__title">注文基本情報</h2>
-            <?php if($count != 0): ?>
+            <?php if($orderCount != 0): ?>
             <table>
                 <tr><th>注文番号</th><th>来店予定日時</th><th>店舗名</th><th>決済方法</th></tr>
-                <?php for($i=0; $i<1; $i++): ?>
-                <?php $dt = strtotime($rows[$i]['order_datetime']); ?>
+                <?php $dt = strtotime($orderResult['order_datetime']); ?>
                 <tr>
-                    <td><?= $rows[$i]['order_num'] ?></td>
+                    <td><?= $orderResult['order_num'] ?></td>
                     <td><?= date('Y-m-d H:i', $dt) ?></td>
-                    <td><?= $rows[$i]['store_name'] ?></td>
-                    <td><?= $dispPay[$i] ?></td>
+                    <td><?= $orderResult['store_name'] ?></td>
+                    <td><?= $dispPay ?></td>
                 </tr>
-                <?php endfor; ?>
             </table>
             <?php else: ?>
                 該当データがありません。
@@ -77,12 +83,12 @@ $dbh = null;
         </section>
         <section class="user-mypage-section">
             <h2 class="user-mypage-section__title">提供商品情報</h2>
-            <?php if($count != 0): ?>
+            <?php if($productCount != 0): ?>
             <table>
                 <tr>
                     <th>提供商品</th><th>数量</th><th>ステータス</th><th>キャンセル</th>
                 </tr>
-                <?php for($i=0; $i<$count; $i++): ?>
+                <?php for($i=0; $i<$productCount; $i++): ?>
                 <tr>
                     <td><?= $rows[$i]['menu_name'] ?></a></td>
                     <td><?= $rows[$i]['menu_amount'] ?></td>

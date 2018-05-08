@@ -12,12 +12,9 @@ try{
         exit('DB接続失敗');
     }
     $dbh->query('set names utf8');
-    $sql = " select distinct t_order.order_num, t_order.order_datetime, t_store.store_name ";
-    $sql .= " from t_order, t_order_ticket, t_menu, t_store ";
+    $sql = " select * from t_order, t_store ";
     $sql .= " where t_order.mem_mail = '".$UserMail."' ";
-    $sql .= " and t_order.order_num = t_order_ticket.order_num ";
-    $sql .= " and t_order_ticket.menu_num = t_menu.menu_num ";
-    $sql .= " and t_menu.store_num = t_store.store_num ";
+    $sql .= " and t_order.store_num = t_store.store_num ";
     //現在日時より前の注文を抽出
     $sql .= " and t_order.order_datetime <= now() ";
     $sql .= " order by t_order.order_datetime desc ";
@@ -56,10 +53,6 @@ $dbh = null;
             <?php else: ?>
                 注文履歴はありません。
             <?php endif; ?>
-        </section>
-        <section class="user-mypage-section">
-            <h2 class="user-mypage-section__title">アカウント管理</h2>
-            <a class="" href="/user/account/delete/">アカウントの削除</a>
         </section>
     </main>
     <?php include($_SERVER['DOCUMENT_ROOT'].'/footer.php'); ?>

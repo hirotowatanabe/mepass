@@ -19,8 +19,8 @@ try{
         exit('DB接続失敗');
     }
     $dbh->query('set names utf8');
-    $sql = " insert into t_order(order_pay, order_datetime, mem_mail) ";
-    $sql .= " values('".$pay."', '".$datetime."', '".$UserMail."')";
+    $sql = " insert into t_order(order_pay, order_datetime, mem_mail, store_num) ";
+    $sql .= " values('".$pay."', '".$datetime."', '".$UserMail."', ".$_SESSION['storeSelect'].")";
     $stmt = $dbh->query($sql);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     $count = $stmt->rowCount();

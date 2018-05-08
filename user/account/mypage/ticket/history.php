@@ -40,19 +40,19 @@ $dbh = null;
     <main class="user-main user-mypage">
         <section class="user-mypage-section">
             <h2 class="user-mypage-section__title">注文履歴一覧</h2>
-            <p>注文番号選択で詳細を確認できます。</p>
             <?php if($count != 0): ?>
-            <table>
-                <tr><th>注文番号</th><th>来店予定日時</th><th>店舗名</th></tr>
+            <ul class="order-card-container">
                 <?php for($i=0; $i<count($rows); $i++): ?>
                 <?php $dt = strtotime($rows[$i]['order_datetime']); ?>
-                <tr>
-                    <td><a href="/user/account/mypage/ticket/detail.php?id=<?= $rows[$i]['order_num'] ?>"><?= $rows[$i]['order_num'] ?></a></td>
-                    <td><?= date('Y-m-d H:i', $dt) ?></td>
-                    <td><?= $rows[$i]['store_name'] ?></td>
-                </tr>
+                <li class="order-card">
+                    <a class="order-card__link" href="/user/account/mypage/ticket/detail.php?id=<?= $rows[$i]['order_num'] ?>">
+                        <p class="order-card__num">注文番号：<?= $rows[$i]['order_num'] ?></p>
+                        <p class="order-card__time"><i class="fa fa-clock-o" aria-hidden="true"></i><?= date('Y-m-d H:i', $dt) ?></p>
+                        <p class="order-card__place"><i class="fa fa-map-marker" aria-hidden="true"></i><?= $rows[$i]['store_name'] ?></p>
+                    </a>
+                </li>
                 <?php endfor; ?>
-            </table>
+            </ul>
             <?php else: ?>
                 注文履歴はありません。
             <?php endif; ?>

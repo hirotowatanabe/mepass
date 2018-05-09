@@ -63,13 +63,16 @@ $dbh = null;
             <h2 class="user-mypage-section__title">アカウント管理</h2>
             <ul class="list-menu">
                 <li class="list-menu__item">
-                    <a class="list-menu__link" href="/user/account/delete/">アカウントの削除</a>
-                </li>
-                <li class="list-menu__item">
                     <a class="list-menu__link" href="javascript:void(0)">ユーザー名の変更（準備中）</a>
                 </li>
                 <li class="list-menu__item">
                     <a class="list-menu__link" href="javascript:void(0)">パスワードの変更（準備中）</a>
+                </li>
+                <li class="list-menu__item">
+                    <a class="list-menu__link list-menu__link--red" href="/user/account/logout/?redirect=top">ログアウト</a>
+                </li>
+                <li class="list-menu__item">
+                    <a class="list-menu__link list-menu__link--red" href="/user/account/delete/">アカウントの削除</a>
                 </li>
             </ul>
         </section>

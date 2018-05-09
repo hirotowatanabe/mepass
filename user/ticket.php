@@ -23,9 +23,9 @@ if(isset($_POST['menuSelectSubmit'])){
         if($_POST['back'] == 'index'){
             header('Location: /?select=true');
             exit();
-        }else if($_POST['back'] == 'store'){
+        }else if($_POST['back'] == 'detail'){
             $storeId = $_POST['storeId'];
-            header('Location: /user/store.php?select=true&id='.$storeId);
+            header('Location: /user/menu-detail.php?select=true&menuId='.$_POST['id']);
             exit();
         }
     }else{
@@ -109,8 +109,10 @@ if(isset($_SESSION['ticket'])){
             <?php for($i=0; $i<count($rows); $i++): ?>
                 <li class="menu-card">
                     <img class="menu-card__image" src="/store/menu/images/<?= $rows[$i]['menu_file_name'] ?>">
-                    <div class="menu-card__name"><?= $rows[$i]['menu_name'] ?></div>
-                    <div class="menu-card__price"><?= $rows[$i]['menu_price'] ?>円</div>
+                    <div class="menu-card__label">
+                        <p class="menu-card__name"><?= $rows[$i]['menu_name'] ?></p>
+                        <p class="menu-card__price"><?= $rows[$i]['menu_price'] ?>円</p>
+                    </div>
                     <div class="menu-card__box">
                         <form class="menu-card-form" action="/user/ticket.php" method="post">
                             <input type="hidden" name="id" value="<?= $rows[$i]['menu_num'] ?>">

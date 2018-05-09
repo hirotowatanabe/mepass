@@ -37,13 +37,6 @@ try{
         $followResult = $stmt->fetch(PDO::FETCH_ASSOC);
         $followCount = $stmt->rowCount();
     }
-    $sql = " select * from t_menu ";
-    $sql .= " where store_num = ".$id;
-    $stmt = $dbh->query($sql);
-    while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
-        $rows[] = $result;
-    }
-    $count = $stmt->rowCount();
 }catch(PDOException $e){
     echo 'Error:'.$e->getMessage();
     die();
@@ -60,42 +53,35 @@ $dbh = null;
                 <h3 class="store-header__title"><?= $storeResult['store_name'] ?></h3>
                 <?php if($UserMail != ''): ?>
                     <?php if($followCount == 0): ?>
-                    <a class="store-card__button" href="/user/follow.php?flag=follow&id=<?= $storeResult['store_num'] ?>&back=store">店舗をフォロー</a>
+                    <a class="store-card__button" href="/user/follow.php?flag=follow&id=<?= $storeResult['store_num'] ?>&back=detail">店舗をフォロー</a>
                     <?php else: ?>
-                    <a class="store-card__button" href="/user/follow.php?flag=unfollow&id=<?= $storeResult['store_num'] ?>&back=store">フォロー中</a>
+                    <a class="store-card__button" href="/user/follow.php?flag=unfollow&id=<?= $storeResult['store_num'] ?>&back=detail">フォロー中</a>
                     <? endif; ?>
                 <?php endif; ?>
             </div>
             <nav class="store-nav">
                 <ul class="store-nav__list">
-                    <li class="store-nav__item is-show">
+                    <li class="store-nav__item">
                         <a class="store-nav__link" href="/user/store.php?id=<?= $id ?>">メニュー</a>
                     </li>
-                    <li class="store-nav__item">
+                    <li class="store-nav__item is-show">
                         <a class="store-nav__link" href="/user/store-detail.php?id=<?= $id ?>">店舗情報</a>
                     </li>
                 </ul>
             </nav>
         </div>
+        <div class="store-info">
+            <div class="store-info__item">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <?= $storeResult['store_tel'] ?>
+            </div>
+            <div class="store-info__item">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <?= $storeResult['store_post'] ?>&nbsp;<?= $storeResult['store_pref'].$storeResult['store_city'].$storeResult['store_add'] ?>
+            </div>
+        </div>
         <?php if($msg != ''): ?>
         <p class="user-main-msg"><?= $msg ?></p>
-        <?php endif; ?>
-        <?php if($count != 0): ?>
-        <ul class="user-main__menu">
-        <?php for($i=0; $i<$count; $i++): ?>
-            <li class="menu-card">
-                <a href="/user/menu-detail.php?menuId=<?= $rows[$i]['menu_num'] ?>">
-                    <img class="menu-card__image" src="/store/menu/images/<?= $rows[$i]['menu_file_name'] ?>">
-                    <div class="menu-card__label">
-                        <p class="menu-card__name"><?= $rows[$i]['menu_name'] ?></p>
-                        <p class="menu-card__price"><?= $rows[$i]['menu_price'] ?>円</p>
-                    </div>
-                </a>
-            </li>
-        <?php endfor; ?>
-        </ul>
-        <?php else: ?>
-            <p class="user-main-msg">メニューが見つかりませんでした。</p>
         <?php endif; ?>
     </main>
     <?php include($_SERVER['DOCUMENT_ROOT'].'/footer.php'); ?>

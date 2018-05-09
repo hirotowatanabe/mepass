@@ -33,7 +33,10 @@ try{
     die();
 }
 $dbh = null;
-
-header('Location: /user/store.php?id='.$id);
+if($_GET['back'] == 'store'){
+    header('Location: /user/store.php?id='.$id);
+}else if($_GET['back'] == 'detail'){
+    header('Location: /user/store-detail.php?id='.$id);
+}
 exit();
 ?>

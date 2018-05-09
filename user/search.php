@@ -5,10 +5,7 @@ $pageTitle = '検索';
 $msg = '';
 
 //検索条件初期化
-$name = '';
-$pref = '';
-$city = '';
-$add = '';
+$name = $pref = $city = $add = '';
 
 if(isset($_POST['searchSubmit'])){
     $name = $_POST['name'];
@@ -45,12 +42,12 @@ if(isset($_POST['searchSubmit'])){
 }
 ?>
 <!DOCTYPE html>
-<?php include($_SERVER['DOCUMENT_ROOT']."/head.php") ?>
+<?php include($_SERVER['DOCUMENT_ROOT'].'/head.php'); ?>
 <body>
-    <?php include($_SERVER['DOCUMENT_ROOT']."/header.php") ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'].'/header.php'); ?>
     <main class="user-main">
-        <div class="user-main-ticket-top">
-            <h3 class="user-main-ticket-top__title">店舗検索</h3>
+        <div class="store-search">
+            <h3 class="store-search__title">店舗検索</h3>
             <form class="user-main-search__form" action="search.php" method="post">
                 <section class="user-main-form__section">
                     <h4 class="user-main-form__title">店舗名指定</h4>
@@ -92,5 +89,5 @@ if(isset($_POST['searchSubmit'])){
         <?php endif; ?>
         </section>
     </main>
-    <?php include($_SERVER['DOCUMENT_ROOT']."/footer.php") ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'].'/footer.php'); ?>
 </body>

@@ -67,64 +67,55 @@ html, body {
     padding: 0 50px;
     width: 100%;
     height: 50px;
-    &__title {
-        height: 50px;
-        line-height: 50px;
-        text-align: center;
-        font-weight: bold;
-        font-size: 30px;
-        a {
-            color: #e67e22;
-        }
-    }
+
     &__list {
         display: flex;
+        justify-content: flex-end;
         align-items: center;
         height: 50px;
     }
-    &__item {
+
+    &__title {
+        font-weight: bold;
+        font-size: 30px;
+    }
+
+    &__link {
         color: #222;
-        a, i {
-            color: #222;
-        }
-        &:not(:last-child) {
-            margin-right: 10px;
+
+        &--title {
+            color: #e67e22;
         }
     }
+
+    &__item {
+        i {
+            color: #222;
+        }
+
+        &:first-child {
+            margin-right: auto;
+        }
+
+        &:not(:first-child):not(:last-child) {
+            margin-right: 20px;
+        }
+    }
+
     //スマホサイズ
     @media(max-width: 650px) {
         padding: 0 10px;
-        height: 100px;
-        &__list {
-            justify-content: space-between;
-        }
-        &__search-text {
+
+        &__text {
             display: none;
-        }
-        &__name {
-            display: block;
-        }
-    }
-    @media(min-width: 650px) {
-        &__title {
-            margin-right: auto;
-        }
-        &__nav {
-            display: flex;
-            justify-content: flex-end;
-        }
-        &__name {
-            margin-right: 10px;
         }
     }
 }
 
 .user-main {
     padding-top: 50px;
-    @media(max-width: 500px) {
-        padding-top: 100px;
-    }
     background-color: #f2f2f2;
+
     &-intro {
         display: flex;
         flex-direction: column;
@@ -253,10 +244,10 @@ html, body {
         color: $primaryText;
         line-height: 20px;
         @media(max-width: 650px) {
-            margin: 0 10px 20px 10px;
+            margin: 50px 10px 20px 10px;
         }
         @media(min-width: 650px) {
-            margin: 0 50px 20px 50px;
+            margin: 50px 50px 20px 50px;
         }
         &__link {
             color: $primaryText;
@@ -361,9 +352,7 @@ html, body {
 .user-mypage {
     background-color: #f2f2f2;
     padding: 100px 0 50px 0;
-    @media(max-width: 650px) {
-        padding: 150px 0 50px 0;
-    }
+
     &-section {
         width: 100%;
         &:not(:last-child) {
@@ -495,6 +484,88 @@ html, body {
         text-align: center;
         a {
             color: #fff;
+        }
+    }
+}
+
+.store-search {
+    padding: 50px 50px;
+
+    &__title {
+        margin-bottom: 30px;
+        font-size: 30px;
+    }
+}
+
+.store-header {
+    padding: 50px;
+
+    //スマホサイズ
+    @media(max-width: 650px) {
+        padding: 50px 10px;
+    }
+
+    &__info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+
+        //スマホサイズ
+        @media(max-width: 650px) {
+            display: block;
+        }
+    }
+
+    &__title {
+        font-size: 30px;
+
+        @media(max-width: 650px) {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.store-nav {
+    width: 100%;
+    height: 50px;
+
+    &__list {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__item {
+        border-bottom: solid 2px #ccc;
+        height: 100%;
+
+        &.is-show {
+            border-bottom: solid 2px #3F51B5;
+        }
+    }
+
+    &__link {
+        display: block;
+        padding: 0 20px;
+        height: 100%;
+        line-height: 50px;
+        color: #222;
+    }
+}
+
+.store-info {
+    padding: 0 50px 50px 50px;
+
+    //スマホサイズ
+    @media(max-width: 650px) {
+        padding: 0 10px 50px 10px;
+    }
+
+    &__item {
+        &:not(:last-child) {
+            margin-bottom: 30px;
         }
     }
 }
@@ -817,22 +888,30 @@ html, body {
     flex-direction: column;
     align-items: center;
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: 3px;
     margin: 10px;
     width: 300px;
     overflow: hidden;
+
     &__image {
-        border-radius: 5px 5px 0 0;
+        border-radius: 3px 3px 0 0;
         width: 300px;
     }
-    &__name {
+
+    &__label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+        width: 100%;
+        height: 40px;
+    }
+
+    &__name, &__price {
         font-size: 20px;
-        font-weight: bold;
-        line-height: 40px;
+        color: #222;
     }
-    &__price {
-        line-height: 36px;
-    }
+
     &__box {
         display: flex;
         flex-direction: column;
@@ -879,16 +958,89 @@ html, body {
             @include button(#c0392b, none, 240px, 50px, 20px, #fff);
         }
     }
-    &__add-button {
-        @include button(#848484, none, 300px, 50px, 20px, #fff);
-        border-radius: 0 0 3px 3px;
-        transition: all 0.3s linear;
-        &:hover {
-            @include button(#e67e22, none, 300px, 50px, 20px, #fff);
-            border-radius: 0 0 3px 3px;
+}
+
+.menu-detail-breadcrumbs {
+    padding: 50px 50px 0 50px;
+    width: 100%;
+    font-size: 20px;
+
+    &__link {
+        color: #222;
+        text-decoration: underline;
+    }
+
+    //スマホサイズ
+    @media(max-width: 650px) {
+        padding: 50px 10px 0 10px;
+    }
+}
+
+.menu-detail {
+    display: flex;
+    width: 100%;
+    padding: 50px;
+
+    //スマホサイズ
+    @media(max-width: 650px) {
+        display: block;
+        padding: 50px 10px;
+    }
+
+    &__left-container, &__right-container {
+        width: 50%;
+
+        //スマホサイズ
+        @media(max-width: 650px) {
+            width: 100%;
         }
-        i {
-            margin-right: 10px;
+    }
+
+    &__right-container {
+        padding-left: 30px;
+
+        //スマホサイズ
+        @media(max-width: 650px) {
+            padding-top: 30px;
+            padding-left: 0;
+        }
+    }
+
+    &__image {
+        width: 100%;
+    }
+
+    &__name {
+        margin-bottom: 30px;
+        width: 100%;
+        font-size: 30px;
+    }
+
+    &__price {
+        margin-bottom: 30px;
+        width: 100%;
+        font-size: 20px;
+    }
+
+    &__number {
+        margin-bottom: 30px;
+        width: 100%;
+    }
+
+    &__input {
+        @include formInput(#fff, none, 100px, 50px, 20px, $primaryText, 1em);
+        margin-right: 10px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    &__submit {
+        @include formInput(#e67e22, none, 200px, 50px, 20px, #fff, none);
+        display: block;
+
+        &:hover {
+            @include formInput(#e67e22, none, 200px, 50px, 20px, #fff, none);
+            cursor: pointer;
         }
     }
 }
@@ -1159,8 +1311,13 @@ html, body {
     background-color: #fff;
     width: 300px;
 
+    //スマホサイズ
+    @media(max-width: 650px) {
+        width: 100%;
+    }
+
     &__item {
-        width: 300px;
+        width: 100%;
 
         &:not(:last-child) {
             border-bottom: solid 2px #f2f2f2;
@@ -1173,5 +1330,9 @@ html, body {
         width: 100%;
         line-height: 25px;
         color: #333;
+
+        &--red {
+            color: #e74c3c;
+        }
     }
 }

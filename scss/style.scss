@@ -1,58 +1,10 @@
-//https://www.materialpalette.com/indigo/light-green
-$darkPrimaryColor: #303F9F;
-$lightPrimaryColor: #C5CAE9;
-$primaryColor: #3F51B5;
-$textIcons: #FFFFFF;
-$accentColor: #8BC34A;
-$primaryText: #212121;
-$secondaryText: #757575;
-$dividerColor: #BDBDBD;
-
 @charset "utf-8";
 
-@import "compass/reset";
+@import "_reset";
+@import "_color";
+@import "_mixin";
 
-//ios Safari reset
-input[type="submit"], [type="button"] {
-    -webkit-appearance: none;
-}
-
-@mixin formInput($bgColor, $border, $width, $height, $fontSize, $textColor, $textIndent) {
-    background-color: $bgColor;
-    border: $border;
-    border-radius: 3px;
-    width: $width;
-    height: $height;
-    font-size: $fontSize;
-    color: $textColor;
-    text-indent: $textIndent;
-}
-
-@mixin button($bgColor, $border, $width, $height, $fontSize, $textColor) {
-    display: inline-block;
-    background-color: $bgColor;
-    border: $border;
-    border-radius: 3px;
-    padding: 0 10px;
-    width: $width;
-    height: $height;
-    color: $textColor;
-    text-align: center;
-    font-size: $fontSize;
-    line-height: $height;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-a {
-    text-decoration: none;
-}
-
-h1, h2, h3, h4, h5, h6, div, li, input, p, span, a {
-    font-family: "Noto Sans Japanese";
-}
+$buttonShadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 
 /*一般のスタイル*/
 
@@ -116,139 +68,126 @@ html, body {
     padding-top: 50px;
     background-color: #f2f2f2;
 
-    &-intro {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: url("/images/index_bg.jpg");
-        background-position: center;
-        margin-bottom: 50px;
-        width: 100%;
-        height: 500px;
-        &__desc {
-            margin-bottom: 30px;
-            padding: 0 10px;
-            line-height: 60px;
-            font-size: 50px;
-            font-weight: bold;
-            color: #fff;
-        }
-        &__sub-desc {
-            margin-bottom: 50px;
-            padding: 0 10px;
-            line-height: 22px;
-            font-size: 18px;
-            color: #fff;
-        }
-        &__link {
-            color: #fff;
-            text-decoration: underline;
-        }
+    &--pt100 {
+        padding-top: 100px;
     }
-    &-search {
-        display: flex;
-        justify-content: center;
-        padding: 0 10px;
-        width: 100%;
-        &__text {
-            @include formInput(#fff, none, 60%, 50px, 20px, $primaryText, 1em);
-        }
-        &__submit {
-            @include formInput(#e67e22, none, 100px, 50px, 20px, #fff, none);
-            &:hover {
-                opacity: 0.8;
-            }
-        }
-        @media(min-width: 500px) {
-            &__text {
-                margin-right: 20px;
-            }
-        }
-        @media(min-width: 900px) {
-            &__form {
-                display: flex;
-            }
-        }
-        @media(max-width: 500px) {
-            flex-wrap: wrap;
-            &__text {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-        }
-    }
+
     &__section {
+        &--p50 {
+            padding: 50px;
+
+            //スマホサイズ
+            @media(max-width: 650px) {
+                padding: 50px 10px;
+            }
+        }
+
+        //左右のみ余白
+        &--plr50 {
+            padding: 0 50px;
+
+            //スマホサイズ
+            @media(max-width: 650px) {
+                padding: 0 10px;
+            }
+        }
+
+        &--bg-orange {
+            background-color: #FF5E3A;
+        }
+
         &:not(:last-child){
             margin-bottom: 50px;
         }
+
         &:last-child {
             padding-bottom: 50px;
         }
     }
+
     &__title {
-        margin-bottom: 30px;
+        margin-bottom: 50px;
         font-size: 30px;
-        text-align: center;
+        font-weight: bolder;
+
+        &--fc-white {
+            color: #fff;
+        }
     }
+
     &__menu {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
     }
+
     &-ticket-top {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         margin: 0 auto;
+
         @media(min-width: 500px) {
             justify-content: flex-end;
             padding: 50px 50px;
+
             &__title {
                 margin-right: auto;
             }
         }
+
         @media(max-width: 500px) {
             padding: 50px 10px;
+
             &__title, &__total, &__reset, &__button {
                 margin-bottom: 10px;
             }
         }
+
         &__title {
             font-size: 30px;
             font-weight: bold;
         }
+
         &__total {
             margin-right: 30px;
             font-weight: bold;
             font-size: 20px;
         }
+
         &__reset {
             @include button(#e74c3c, none, auto, 50px, 20px, #fff);
             margin-right: 30px;
+
             &:hover {
                 @include button(#c0392b, none, auto, 50px, 20px, #fff);
             }
         }
+
         &__button {
             @include button($primaryColor, none, auto, 50px, 20px, #fff);
+
             &:hover {
                 @include button($darkPrimaryColor, none, auto, 50px, 20px, #fff);
             }
         }
     }
+
     &-msg {
         background-color: $dividerColor;
         border-radius: 3px;
         padding: 10px;
         color: $primaryText;
         line-height: 20px;
+
         @media(max-width: 650px) {
             margin: 50px 10px 20px 10px;
         }
+
         @media(min-width: 650px) {
             margin: 50px 50px 20px 50px;
         }
+
         &__link {
             color: $primaryText;
             text-decoration: underline;
@@ -298,6 +237,98 @@ html, body {
                     color: #222;
                 }
             }
+        }
+    }
+}
+
+.user-main-intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: url("/images/index_bg.jpg");
+    background-position: center;
+    width: 100%;
+    height: 300px;
+
+    &__desc {
+        margin-bottom: 30px;
+        padding: 0 10px;
+        line-height: 60px;
+        font-size: 50px;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    &__sub-desc {
+        padding: 0 10px;
+        line-height: 22px;
+        font-size: 18px;
+        color: #fff;
+    }
+
+    &__link {
+        color: #fff;
+        text-decoration: underline;
+    }
+}
+
+.user-main-search {
+    &__unit {
+        margin-bottom: 30px;
+    }
+
+    &__title {
+        margin-bottom: 15px;
+        font-size: 20px;
+        color: #fff;
+    }
+
+    &__list {
+        display: flex;
+
+        //スマホサイズ
+        @media(max-width: 650px) {
+            display: block;
+        }
+    }
+
+    &__item {
+        &:not(:last-child) {
+            margin-right: 30px;
+
+            //スマホサイズ
+            @media(max-width: 1200px) {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+
+        span {
+            margin-right: 10px;
+            color: #fff;
+        }
+    }
+
+    &__button {
+        display: block;
+        background-color: #fff;
+        border: none;
+        border-radius: 3px;
+        box-shadow: $buttonShadow;
+        width: 160px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        font-size: 20px;
+        color: #ff5e3a;
+    }
+
+    &__input {
+        @include formInput(#fff, none, 300px, 50px, 20px, $primaryText, 1em);
+
+        &--small {
+            width: 250px;
         }
     }
 }
@@ -488,15 +519,6 @@ html, body {
     }
 }
 
-.store-search {
-    padding: 50px 50px;
-
-    &__title {
-        margin-bottom: 30px;
-        font-size: 30px;
-    }
-}
-
 .store-header {
     padding: 50px;
 
@@ -522,6 +544,25 @@ html, body {
 
         @media(max-width: 650px) {
             margin-bottom: 20px;
+        }
+    }
+
+    &__button {
+        display: block;
+        background-color: #fff;
+        border: solid 2px #e67e22;
+        border-radius: 3px;
+        box-shadow: $buttonShadow;
+        width: 160px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        font-size: 20px;
+        color: #e67e22;
+
+        &.is-follow, &:hover {
+            background-color: #e67e22;
+            color: #fff;
         }
     }
 }
@@ -1035,13 +1076,17 @@ html, body {
     }
 
     &__submit {
-        @include formInput(#e67e22, none, 200px, 50px, 20px, #fff, none);
         display: block;
-
-        &:hover {
-            @include formInput(#e67e22, none, 200px, 50px, 20px, #fff, none);
-            cursor: pointer;
-        }
+        background-color: #e67e22;
+        border: none;
+        border-radius: 3px;
+        box-shadow: $buttonShadow;
+        width: 160px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        font-size: 20px;
+        color: #fff;
     }
 }
 
@@ -1061,13 +1106,6 @@ html, body {
         font-size: 20px;
         font-weight: bold;
         color: #222;
-    }
-    &__button {
-        @include button(#fff, (solid 2px #e67e22), auto, 50px, 20px, #e67e22);
-        transition: all .3s linear;
-        &:hover {
-            @include button(#e67e22, none, auto, 50px, 20px, #fff);
-        }
     }
 }
 
@@ -1333,6 +1371,34 @@ html, body {
 
         &--red {
             color: #e74c3c;
+        }
+    }
+}
+
+.news-list {
+    &__unit {
+        border-left: solid 4px #e74c3c;
+        padding-left: 20px;
+    }
+
+    &__title {
+        line-height: 30px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #222;
+    }
+
+    &__date {
+        line-height: 30px;
+        color: #999;
+    }
+
+    &__content {
+        padding-left: 24px;
+        line-height: 25px;
+
+        &:not(:last-child) {
+            margin-bottom: 40px;
         }
     }
 }

@@ -53,9 +53,9 @@ $dbh = null;
                 <h3 class="store-header__title"><?= $storeResult['store_name'] ?></h3>
                 <?php if($UserMail != ''): ?>
                     <?php if($followCount == 0): ?>
-                    <a class="store-card__button" href="/user/follow.php?flag=follow&id=<?= $storeResult['store_num'] ?>&back=detail">店舗をフォロー</a>
+                    <a class="store-header__button" href="/user/follow.php?flag=follow&id=<?= $storeResult['store_num'] ?>&back=detail">店舗をフォロー</a>
                     <?php else: ?>
-                    <a class="store-card__button" href="/user/follow.php?flag=unfollow&id=<?= $storeResult['store_num'] ?>&back=detail">フォロー中</a>
+                    <a class="store-header__button is-follow" href="/user/follow.php?flag=unfollow&id=<?= $storeResult['store_num'] ?>&back=detail">フォロー中</a>
                     <? endif; ?>
                 <?php endif; ?>
             </div>

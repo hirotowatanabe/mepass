@@ -1,0 +1,24 @@
+@mixin formInput($bgColor, $border, $width, $height, $fontSize, $textColor, $textIndent) {
+    background-color: $bgColor;
+    border: $border;
+    border-radius: 3px;
+    width: $width;
+    height: $height;
+    font-size: $fontSize;
+    color: $textColor;
+    text-indent: $textIndent;
+}
+
+@mixin button($bgColor, $border, $width, $height, $fontSize, $textColor) {
+    display: inline-block;
+    background-color: $bgColor;
+    border: $border;
+    border-radius: 3px;
+    padding: 0 10px;
+    width: $width;
+    height: $height;
+    color: $textColor;
+    text-align: center;
+    font-size: $fontSize;
+    line-height: $height;
+}

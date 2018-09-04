@@ -66,6 +66,10 @@ $dbh = null;
             </form>
         </div>
         <section class="user-main__section user-main__section--plr50">
+            <h2 class="user-main__title">重要情報</h2>
+            <p>本サイトは学生の作品として公開されているものであり、使用されているデータは全てサンプルデータです。</p>
+        </section>
+        <section class="user-main__section user-main__section--plr50">
             <h2 class="user-main__title">フォロー中の店舗</h2>
             <?php if($count != 0): ?>
             <ul class="user-main__menu">
